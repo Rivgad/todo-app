@@ -7,21 +7,9 @@ import fs from 'fs';
 import path from 'path';
 
 
-const baseFolder =
-    process.env.APPDATA !== undefined && process.env.APPDATA !== ''
-        ? `${process.env.APPDATA}/ASP.NET/https`
-        : `${process.env.HOME}/.aspnet/https`;
+const { keyFilePath, certFilePath } = getCerfAndKey();
 
-const certificateArg = process.argv.map(arg => arg.match(/--name=(?<value>.+)/i)).filter(Boolean)[0];
-const certificateName = certificateArg ? certificateArg.groups.value : "reactapp";
-
-if (!certificateName) {
-    console.error('Invalid certificate name. Run this script in the context of an npm/yarn script or pass --name=<<app>> explicitly.')
-    process.exit(-1);
-}
-
-const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
-const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
+const API_URL = process.env.VITE_API_URL ?? "https://localhost:7283/";
 
 export default defineConfig({
     plugins: [react()],
@@ -32,9 +20,11 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            '^/weatherforecast': {
-                target: 'https://localhost:7283/',
-                secure: false
+            '/api': {
+                target: API_URL,
+                changeOrigin: true,
+                secure: false,
+                rewrite: path => path.replace(/^\/api/, '')
             }
         },
         port: 5173,
@@ -44,3 +34,22 @@ export default defineConfig({
         }
     }
 })
+
+function getCerfAndKey() {
+    const baseFolder = process.env.APPDATA !== undefined && process.env.APPDATA !== ''
+        ? `${process.env.APPDATA}/ASP.NET/https`
+        : `${process.env.HOME}/.aspnet/https`;
+
+    const certificateArg = process.argv.map(arg => arg.match(/--name=(?<value>.+)/i)).filter(Boolean)[0];
+    const certificateName = certificateArg ? certificateArg.groups.value : "reactapp";
+
+    if (!certificateName) {
+        console.error('Invalid certificate name. Run this script in the context of an npm/yarn script or pass --name=<<app>> explicitly.');
+        process.exit(-1);
+    }
+
+    const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
+    const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
+    return { keyFilePath, certFilePath };
+}
+
