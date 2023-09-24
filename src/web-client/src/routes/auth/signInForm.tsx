@@ -1,7 +1,7 @@
 import { Form } from "react-router-dom";
 import { InputGroup, Label, Input, Button } from "./components";
 
-export const RegistrationForm: React.FC = () => {
+export const SignInForm: React.FC = () => {
     return (
         <Form>
             <InputGroup>
@@ -14,12 +14,7 @@ export const RegistrationForm: React.FC = () => {
                 <Input type="password" id="password" required />
             </InputGroup>
 
-            <InputGroup>
-                <Label htmlFor="confirmPassword">Подтвердите пароль</Label>
-                <Input type="password" id="confirmPassword" required />
-            </InputGroup>
-
-            <Button type="submit">Зарегистрироваться</Button>
+            <Button type="submit">Войти</Button>
         </Form>
     );
 };

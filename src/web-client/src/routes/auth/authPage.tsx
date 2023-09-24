@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 import styled from 'styled-components';
-import { LoginForm } from "./loginForm";
-import { RegistrationForm } from "./registrationForm";
+import { SignInForm } from "./signInForm";
+import { SignUpForm } from "./signUpForm";
 
 
 export const PageContainer = styled.div`
@@ -47,7 +47,7 @@ export const AuthPage: React.FC = () => {
             <AuthContainer>
                 <Title>To-do App!</Title>
 
-                {isLoginMode ? <LoginForm /> : <RegistrationForm />}
+                {isLoginMode ? <SignInForm /> : <SignUpForm />}
 
                 <SwitchMode onClick={() => setIsLoginMode(!isLoginMode)}>
                     {isLoginMode ? 'Нет аккаунта? Зарегистрироваться' : 'Уже есть аккаунт? Войти'}
