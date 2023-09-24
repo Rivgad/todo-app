@@ -11,8 +11,10 @@
     "predev": "node aspnetcore-https.js"
   },
   "dependencies": {
+    "@types/js-cookie": "^3.0.4",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.27",
+    "js-cookie": "^3.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.16.0",
