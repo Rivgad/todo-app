@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
-const loadingStyles = css`
+const loading = css`
     filter: brightness(0.8);
     cursor: progress;
     position: relative;
@@ -43,7 +43,7 @@ export const Button = styled.button`
     }
 
     &:disabled {
-        ${loadingStyles}
+        ${loading}
     }
 `;
 
