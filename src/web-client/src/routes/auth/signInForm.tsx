@@ -1,5 +1,6 @@
 import { useFetcher } from "react-router-dom";
 import { InputGroup, Label, Input, Button, StyledLink } from "./components";
+import { ErrorComponent } from "../../components/errorComponent";
 
 
 export const SignInForm: React.FC = () => {
@@ -20,6 +21,11 @@ export const SignInForm: React.FC = () => {
             <Button type="submit" disabled={fetcher.state === "submitting"}>
                 Войти
             </Button>
+
+            {
+                fetcher.data?.error &&
+                <ErrorComponent message={fetcher.data?.error || 'Произошла ошибка. Пожалуйста, попробуйте снова.'}/>
+            }
 
             <StyledLink to={'/signup'}>
                 <p>Нет аккаунта? Зарегистрироваться</p>
