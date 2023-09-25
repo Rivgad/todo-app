@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 const loadingStyles = css`
@@ -63,3 +64,14 @@ export const Input = styled.input`
     box-sizing: border-box;
 `;
 
+export const StyledLink = styled(Link)`
+    margin-top: 1rem;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+
+    &:hover {
+        text-decoration: underline;
+    }
+`;

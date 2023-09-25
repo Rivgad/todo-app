@@ -1,8 +1,5 @@
-import { useState } from "react";
-
 import styled from 'styled-components';
-import { SignInForm } from "./signInForm";
-import { SignUpForm } from "./signUpForm";
+import { Outlet } from "react-router-dom";
 
 
 export const PageContainer = styled.div`
@@ -29,29 +26,13 @@ const Title = styled.h1`
     margin-top: 0;
 `;
 
-const SwitchMode = styled.p`
-    margin-top: 1rem;
-    text-align: center;
-    cursor: pointer;
-
-    &:hover {
-        text-decoration: underline;
-    }
-`;
-
 export const AuthPage: React.FC = () => {
-    const [isLoginMode, setIsLoginMode] = useState(true);
-
     return (
         <PageContainer>
             <AuthContainer>
                 <Title>To-do App!</Title>
 
-                {isLoginMode ? <SignInForm /> : <SignUpForm />}
-
-                <SwitchMode onClick={() => setIsLoginMode(!isLoginMode)}>
-                    {isLoginMode ? 'Нет аккаунта? Зарегистрироваться' : 'Уже есть аккаунт? Войти'}
-                </SwitchMode>
+                <Outlet/>
             </AuthContainer>
         </PageContainer>
     );

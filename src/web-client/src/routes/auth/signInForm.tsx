@@ -1,20 +1,29 @@
-import { Form } from "react-router-dom";
-import { InputGroup, Label, Input, Button } from "./components";
+import { useFetcher } from "react-router-dom";
+import { InputGroup, Label, Input, Button, StyledLink } from "./components";
+
 
 export const SignInForm: React.FC = () => {
+    const fetcher = useFetcher();
+
     return (
-        <Form>
+        <fetcher.Form method="post" action="/signin">
             <InputGroup>
                 <Label htmlFor="email">Email</Label>
-                <Input type="email" id="email" required />
+                <Input type="email" id="input-email" name="email" required />
             </InputGroup>
 
             <InputGroup>
                 <Label htmlFor="password">Пароль</Label>
-                <Input type="password" id="password" required />
+                <Input type="password" id="input-password" name="password" required />
             </InputGroup>
 
-            <Button type="submit">Войти</Button>
-        </Form>
+            <Button type="submit" disabled={fetcher.state === "submitting"}>
+                Войти
+            </Button>
+
+            <StyledLink to={'/signup'}>
+                <p>Нет аккаунта? Зарегистрироваться</p>
+            </StyledLink>
+        </fetcher.Form>
     );
 };
