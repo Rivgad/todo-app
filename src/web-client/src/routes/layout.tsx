@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet, useFetcher } from 'react-router-dom';
 import styled from 'styled-components';
+import { Button } from '../components';
 
 const MainContainer = styled.div`
     display: flex;
@@ -23,20 +24,6 @@ const HeaderTitle = styled.div`
     font-size: 1.5rem;
 `;
 
-const LogoutButton = styled.button`
-    background-color: #f44336;
-    color: #fff;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-
-    &:hover {
-        background-color: #d32f2f;
-    }
-`;
-
 const Content = styled.main`
     display: flex;
     justify-content: center;
@@ -54,9 +41,14 @@ const Layout: React.FC = () => {
                     Todo App
                 </HeaderTitle>
                 <fetcher.Form action='/logout'>
-                    <LogoutButton type='submit'>
+                    <Button style={{
+                        backgroundColor: '#f44336',
+                        fontSize: 'medium'
+                    }}
+                        type='submit'
+                    >
                         Выйти
-                    </LogoutButton>
+                    </Button>
                 </fetcher.Form>
             </Header>
             <Content>
