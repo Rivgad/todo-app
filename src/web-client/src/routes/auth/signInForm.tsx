@@ -1,6 +1,7 @@
 import { useFetcher } from "react-router-dom";
-import { InputGroup, Label, Input, Button, StyledLink } from "./components";
+import { InputGroup, Label, Input, StyledLink } from "./components";
 import { ErrorComponent } from "../../components/errorComponent";
+import { Button } from "../../components";
 
 
 export const SignInForm: React.FC = () => {
