@@ -7,7 +7,6 @@ const MainContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    min-height: 100%;
     background-color: #f4f4f4;
 `;
 
@@ -24,11 +23,12 @@ const HeaderTitle = styled.div`
     font-size: 1.5rem;
 `;
 
-const Content = styled.main`
+const Content = styled.div`
     display: flex;
     justify-content: center;
-    align-items: top;
-    flex-grow: 1;
+    align-items: flex-start; 
+    flex: 1;
+    overflow-y: auto;
 `;
 
 const Layout: React.FC = () => {
