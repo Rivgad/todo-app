@@ -65,7 +65,7 @@ const TodoList: React.FC = () => {
                     </Await>
                 </React.Suspense>
             </ListContainer>
-            <Button style={{ margin: '1rem auto' }}>Создать</Button>
+            <Button style={{ margin: '1rem auto', width:'100%' }}>Создать</Button>
         </Container>
     );
 };
