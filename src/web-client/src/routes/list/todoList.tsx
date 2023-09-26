@@ -1,39 +1,15 @@
 import React from 'react';
 import { Await, useFetcher, useLoaderData } from 'react-router-dom';
 import styled from 'styled-components';
-import { BaseLink, Button, ErrorComponent, RedButton } from '../../components';
+import { BaseLink, Button, ErrorComponent } from '../../components';
 import { Todo } from '../../model';
+import { Container, DeleteButton, ListItem, ListContainer } from './styles';
 
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 35rem;
-`;
-
-const ListContainer = styled.div`
-    flex: auto;
-    overflow-y: auto;
-    overflow-wrap: anywhere;
-`;
-
-const TodoItem = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    border: 0.1rem solid #ddd;
-    margin-top: 1rem;
-`;
 
 const Link = styled(BaseLink)`
     margin: 0;
     text-align: left;
     padding: 1rem;
-`
-
-const DeleteButton = styled(RedButton)`
-    overflow-wrap: initial;
 `
 
 const TodoList: React.FC = () => {
@@ -70,7 +46,7 @@ const TodoList: React.FC = () => {
                         {(items: Array<Todo>) => {
                             return items.length !== 0
                                 ? items.map((item) => (
-                                    <TodoItem key={item.id}>
+                                    <ListItem key={item.id}>
                                         <Link to={`/list/${item.id}`}>
                                             {item.name}
                                         </Link>
@@ -80,7 +56,7 @@ const TodoList: React.FC = () => {
                                         >
                                             Удалить
                                         </DeleteButton>
-                                    </TodoItem>
+                                    </ListItem>
                                 ))
                                 : <p>Ещё нет ни одного списка. Создайте свой первый!</p>
                         }}
