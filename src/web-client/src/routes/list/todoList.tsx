@@ -3,7 +3,7 @@ import { Await, useLoaderData } from 'react-router-dom';
 import styled from 'styled-components';
 import { Todo } from '../../services/listService';
 import { ErrorComponent } from '../../components/errorComponent';
-import { BaseLink, Button } from '../../components';
+import { BaseLink, Button, RedButton } from '../../components';
 
 const Container = styled.div`
     display: flex;
@@ -33,8 +33,7 @@ const Link = styled(BaseLink)`
     padding: 1rem;
 `
 
-const DeleteButton = styled(Button)`
-    background-color: #f44336;
+const DeleteButton = styled(RedButton)`
     font-size: medium;
     overflow-wrap: initial;
     width: auto;

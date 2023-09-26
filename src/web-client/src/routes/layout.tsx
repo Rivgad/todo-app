@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet, useFetcher } from 'react-router-dom';
 import styled from 'styled-components';
-import { Button } from '../components';
+import { RedButton } from '../components';
 
 const MainContainer = styled.div`
     display: flex;
@@ -41,14 +41,9 @@ const Layout: React.FC = () => {
                     Todo App
                 </HeaderTitle>
                 <fetcher.Form action='/logout'>
-                    <Button style={{
-                        backgroundColor: '#f44336',
-                        fontSize: 'medium'
-                    }}
-                        type='submit'
-                    >
+                    <RedButton type='submit'>
                         Выйти
-                    </Button>
+                    </RedButton>
                 </fetcher.Form>
             </Header>
             <Content>

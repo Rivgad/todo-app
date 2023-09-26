@@ -1,3 +1,3 @@
 export { loading } from './styled/loading';
-export { Button } from './styled/button';
+export { Button, RedButton } from './styled/button';
 export { BaseLink } from './styled/baseLink'

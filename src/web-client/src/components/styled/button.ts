@@ -20,3 +20,7 @@ export const Button = styled.button`
         ${loading}
     }
 `;
+
+export const RedButton = styled(Button)`
+    background-color: #f44336;
+`
