@@ -50,6 +50,13 @@ const TodoList: React.FC = () => {
         }
     };
 
+    const deleteTodo = (id: number) => {
+        fetcher.submit({ id: id }, {
+            method: "delete",
+            action: "/list"
+        })
+    };
+
     return (
         <Container>
             <ListContainer>
@@ -68,7 +75,12 @@ const TodoList: React.FC = () => {
                                         <Link to={`/list/${item.id}`}>
                                             {item.name}
                                         </Link>
-                                        <DeleteButton>Удалить</DeleteButton>
+                                        <DeleteButton
+                                            disabled={fetcher.state === "submitting"}
+                                            onClick={() => deleteTodo(item.id)}
+                                        >
+                                            Удалить
+                                        </DeleteButton>
                                     </TodoItem>
                                 ))
                                 : <p>Ещё нет ни одного списка. Создайте свой первый!</p>

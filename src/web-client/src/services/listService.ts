@@ -9,6 +9,7 @@ export interface Todo {
 export interface ListService {
     getLists(): Promise<Array<Todo>>;
     addTodo(name: string): Promise<Todo>;
+    deleteTodo(id: number): Promise<void>;
 }
 
 class _ListService implements ListService {
@@ -22,6 +23,10 @@ class _ListService implements ListService {
         const response = await axios.post('/api/list', { name: name });
 
         return response.data as Todo;
+    }
+
+    async deleteTodo(id: number): Promise<void> {
+        await axios.delete(`/api/list/${id}`);
     }
 }
 
