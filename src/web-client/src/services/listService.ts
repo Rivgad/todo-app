@@ -1,18 +1,31 @@
 import axios from 'axios';
 
+export interface Task {
+    id: number;
+    name: string;
+    done: boolean;
+}
 
 export interface Todo {
     id: number;
     name: string;
+    tasks: Array<Task> | undefined
 }
 
 export interface ListService {
+    getList(id: number): Promise<Todo>;
     getLists(): Promise<Array<Todo>>;
     addTodo(name: string): Promise<Todo>;
     deleteTodo(id: number): Promise<void>;
 }
 
 class _ListService implements ListService {
+    async getList(id: number): Promise<Todo> {
+        const response = await axios.get(`/api/list/${id}`);
+
+        return response.data as Todo;
+    }
+
     async getLists(): Promise<Array<Todo>> {
         const response = await axios.get('/api/list');
 
