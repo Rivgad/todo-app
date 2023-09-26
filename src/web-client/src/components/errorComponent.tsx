@@ -10,6 +10,16 @@ const ErrorBox = styled.div`
     font-size: 0.9rem;
 `;
 
-export const ErrorComponent: React.FC<{ message: string; }> = ({ message }) => {
-    return <ErrorBox>{message}</ErrorBox>;
+interface Props extends React.PropsWithChildren {
+    hideIfUndefined?: boolean;
+}
+
+export const ErrorComponent: React.FC<Props> = ({ children, hideIfUndefined=true }) => {
+    return (
+        <>
+            {
+                (children || !hideIfUndefined) && <ErrorBox>{children}</ErrorBox>
+            }
+        </>
+    );
 };

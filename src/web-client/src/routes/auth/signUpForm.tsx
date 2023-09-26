@@ -24,10 +24,7 @@ export const SignUpForm: React.FC = () => {
                 <Input type="password" id="input-confirmPassword" name="confirmPassword" required />
             </InputGroup>
 
-            {
-                fetcher.data?.error &&
-                <ErrorComponent message={fetcher.data?.error || 'Произошла ошибка. Пожалуйста, попробуйте снова.'} />
-            }
+            <ErrorComponent>{fetcher.data?.error}</ErrorComponent>
 
             <Button
                 style={{ width: '100%' }}

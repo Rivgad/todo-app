@@ -64,7 +64,7 @@ const TodoList: React.FC = () => {
                     <Await
                         resolve={data.items}
                         errorElement={
-                            <ErrorComponent message='Не получилось загрузить список. Попробуйте перезагрузить страницу' />
+                            <ErrorComponent>{"Не получилось загрузить список. Попробуйте перезагрузить страницу"}</ErrorComponent>
                         }
                     >
                         {(items: Array<Todo>) => {
@@ -87,10 +87,7 @@ const TodoList: React.FC = () => {
                     </Await>
                 </React.Suspense>
             </ListContainer>
-            {
-                fetcher.data?.error &&
-                <ErrorComponent message={fetcher.data?.error || 'Произошла ошибка. Пожалуйста, попробуйте снова.'} />
-            }
+            <ErrorComponent>{fetcher.data?.error}</ErrorComponent>
             <Button
                 style={{ margin: '1rem auto', width: '100%' }}
                 disabled={fetcher.state === "submitting"}

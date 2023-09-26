@@ -27,10 +27,7 @@ export const SignInForm: React.FC = () => {
                 Войти
             </Button>
 
-            {
-                fetcher.data?.error &&
-                <ErrorComponent message={fetcher.data?.error || 'Произошла ошибка. Пожалуйста, попробуйте снова.'} />
-            }
+            <ErrorComponent>{fetcher.data?.error}</ErrorComponent>
 
             <BaseLink to={'/signup'}>
                 <p>Нет аккаунта? Зарегистрироваться</p>
