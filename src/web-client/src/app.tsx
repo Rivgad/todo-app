@@ -12,6 +12,8 @@ import { SignInForm } from "./routes/auth/signInForm";
 import TodoList from "./routes/list/todoList";
 import { todoListLoader } from "./routes/list/todoList.loader";
 import { todoListAction } from "./routes/list/todoList.action";
+import { ErrorPage } from "./components";
+
 
 const accessToken = Cookies.get('accessToken')
 if (accessToken) {
@@ -25,20 +27,25 @@ const router = createBrowserRouter([
         Component: Layout,
         children: [
             {
-                index: true,
-                Component: TodoList,
-                loader: async ()=>{
-                    if (!authService.isAuthenticated) {
-                        return redirect("/signin");
-                    }
-                    return await todoListLoader()
-                }
+                errorElement: <ErrorPage/>,
+                children: [
+                    {
+                        index: true,
+                        Component: TodoList,
+                        loader: async ()=>{
+                            if (!authService.isAuthenticated) {
+                                return redirect("/signin");
+                            }
+                            return await todoListLoader()
+                        }
+                    },
+                    {
+                        path: "/list",
+                        action: todoListAction,
+                    },
+                ]
             },
-            {
-                path: "/list",
-                action: todoListAction,
-            }
-        ]
+        ],
     },
     {
         Component: AuthPage,
