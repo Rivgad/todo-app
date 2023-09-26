@@ -53,12 +53,12 @@ const TodoList: React.FC = () => {
                         {(items: Array<Todo>) => {
                             return items.length !== 0
                                 ? items.map((item) => (
-                                    <TodoItemContainer key={item.id}>
+                                    <TodoItem key={item.id}>
                                         <Link to={`/list/${item.id}`}>
                                             {item.name}
                                         </Link>
                                         <DeleteButton>Удалить</DeleteButton>
-                                    </TodoItemContainer>
+                                    </TodoItem>
                                 ))
                                 : <p>Ещё нет ни одного списка. Создайте свой первый!</p>
                         }}
