@@ -18,7 +18,7 @@ const ListContainer = styled.div`
     overflow-wrap: anywhere;
 `;
 
-const TodoItemContainer = styled.div`
+const TodoItem = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
