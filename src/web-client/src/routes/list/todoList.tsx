@@ -8,50 +8,37 @@ import { BaseLink, Button } from '../../components';
 const Container = styled.div`
     display: flex;
     flex-direction: column;
-    width: 100%;
     height: 100%;
-    max-height: 100%;
-    justify-content: center;
-    align-items: center;
+    width: 35rem;
 `;
 
 const ListContainer = styled.div`
-    flex: 1;
+    flex: auto;
     overflow-y: auto;
-    margin: 0rem 0 2rem;
-    padding: 0rem 2rem 0;
-    max-width: 80vh;
-    width: 100%;
+    overflow-wrap: anywhere;
 `;
 
-const CustomUl = styled.div`
-    display: flex;
-    flex-direction: column;
-`;
-
-const StikyButton = styled(Button)`
-    margin: 1rem;
-    max-width: 40rem;
-    width: auto;
-`
-
-const TodoItemContainer = styled.li`
+const TodoItemContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem;
-    border-bottom: 1px solid #e0e0e0;
+    padding: 1rem;
+    border: 0.1rem solid #ddd;
+    margin-top: 1rem;
 `;
 
-const TodoItem = (todo: Todo) => (
-    <TodoItemContainer key={todo.id}>
-        <BaseLink to={`/list/${todo.id}`}>
-            {todo.name}
-        </BaseLink>
-    </TodoItemContainer>
-);
+const Link = styled(BaseLink)`
+    margin: 0;
+    text-align: left;
+    padding: 1rem;
+`
 
-
+const DeleteButton = styled(Button)`
+    background-color: #f44336;
+    font-size: medium;
+    overflow-wrap: initial;
+    width: auto;
+`
 
 const TodoList: React.FC = () => {
     const data = useLoaderData() as { items: Array<Todo> };
@@ -60,31 +47,28 @@ const TodoList: React.FC = () => {
         <Container>
             <ListContainer>
                 <React.Suspense fallback={<p>Загрузка...</p>}>
-                    <CustomUl>
-                        <Await
-                            resolve={data.items}
-                            errorElement={
-                                <ErrorComponent message='Не получилось загрузить список. Попробуйте перезагрузить страницу' />
-                            }
-                        >
-                            {(items: Array<Todo>) => {
-                                return items.length !== 0
-                                    ? items.map((item) => (
-                                        <TodoItem
-                                            key={item.id}
-                                            id={item.id}
-                                            name={item.name}
-                                        />
-                                    ))
-                                    : <p>Ещё нет ни одного списка. Создайте свой первый!</p>
-                            }}
-                        </Await>
-                    </CustomUl>
+                    <Await
+                        resolve={data.items}
+                        errorElement={
+                            <ErrorComponent message='Не получилось загрузить список. Попробуйте перезагрузить страницу' />
+                        }
+                    >
+                        {(items: Array<Todo>) => {
+                            return items.length !== 0
+                                ? items.map((item) => (
+                                    <TodoItemContainer>
+                                        <Link to={`/list/${item.id}`}>
+                                            {item.name}
+                                        </Link>
+                                        <DeleteButton>Удалить</DeleteButton>
+                                    </TodoItemContainer>
+                                ))
+                                : <p>Ещё нет ни одного списка. Создайте свой первый!</p>
+                        }}
+                    </Await>
                 </React.Suspense>
             </ListContainer>
-            <div style={{justifyContent:'center',  display:'flex'}}>
-                <StikyButton>Создать новый</StikyButton>
-            </div>
+            <Button style={{ margin: '1rem auto' }}>Создать</Button>
         </Container>
     );
 };
