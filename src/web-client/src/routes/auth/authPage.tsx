@@ -14,8 +14,7 @@ const AuthContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 80vw;
-    max-width: 300px;
-    margin: 5rem auto;
+    max-width: 25vw;
     padding: 2rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 `;
