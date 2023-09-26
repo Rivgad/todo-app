@@ -1,4 +1,6 @@
 import { RouterProvider, createBrowserRouter, redirect } from "react-router-dom";
+import Cookies from 'js-cookie'
+import axios from "axios";
 
 import { authService } from "./services/authService";
 import Layout from "./routes/layout";
@@ -10,6 +12,10 @@ import { SignInForm } from "./routes/auth/signInForm";
 import TodoList from "./routes/list/todoList";
 import { todoListLoader } from "./routes/list/todoList.loader";
 
+const accessToken = Cookies.get('accessToken')
+if (accessToken) {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`
+}
 
 const router = createBrowserRouter([
     {
