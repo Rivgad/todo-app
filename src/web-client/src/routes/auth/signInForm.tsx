@@ -1,5 +1,5 @@
 import { useFetcher } from "react-router-dom";
-import { InputGroup, Label, Input } from "./components";
+import { InputGroup, Label, Input } from "./../../components";
 import { Button, BaseLink, ErrorComponent } from "../../components";
 
 
