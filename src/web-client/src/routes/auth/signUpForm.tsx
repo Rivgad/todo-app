@@ -21,15 +21,19 @@ export const SignUpForm: React.FC = () => {
 
             <InputGroup>
                 <Label htmlFor="confirmPassword">Подтвердите пароль</Label>
-                <Input type="password" id="input-confirmPassword" name="confirmPassword" required/>
+                <Input type="password" id="input-confirmPassword" name="confirmPassword" required />
             </InputGroup>
 
             {
                 fetcher.data?.error &&
-                <ErrorComponent message={fetcher.data?.error || 'Произошла ошибка. Пожалуйста, попробуйте снова.'}/>
+                <ErrorComponent message={fetcher.data?.error || 'Произошла ошибка. Пожалуйста, попробуйте снова.'} />
             }
 
-            <Button type="submit" disabled={fetcher.state === "submitting"}>
+            <Button
+                style={{ width: '100%' }}
+                type="submit"
+                disabled={fetcher.state === "submitting"}
+            >
                 Зарегистрироваться
             </Button>
 

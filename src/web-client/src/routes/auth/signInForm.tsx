@@ -19,13 +19,17 @@ export const SignInForm: React.FC = () => {
                 <Input type="password" id="input-password" name="password" required />
             </InputGroup>
 
-            <Button type="submit" disabled={fetcher.state === "submitting"}>
+            <Button
+                style={{ width: '100%' }}
+                type="submit"
+                disabled={fetcher.state === "submitting"}
+            >
                 Войти
             </Button>
 
             {
                 fetcher.data?.error &&
-                <ErrorComponent message={fetcher.data?.error || 'Произошла ошибка. Пожалуйста, попробуйте снова.'}/>
+                <ErrorComponent message={fetcher.data?.error || 'Произошла ошибка. Пожалуйста, попробуйте снова.'} />
             }
 
             <BaseLink to={'/signup'}>

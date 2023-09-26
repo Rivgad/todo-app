@@ -2,13 +2,13 @@ import { styled } from "styled-components";
 import { loading } from "./loading";
 
 export const Button = styled.button`
-    width: 100%;
-    padding: 0.7rem;
+    width: auto;
+    padding: 0.7rem 1rem;
     background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 5px;
-    font-size: large;
+    font-size: medium;
     cursor: pointer;
     transition: 0.3s;
 

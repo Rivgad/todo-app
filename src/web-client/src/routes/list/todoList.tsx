@@ -34,9 +34,7 @@ const Link = styled(BaseLink)`
 `
 
 const DeleteButton = styled(RedButton)`
-    font-size: medium;
     overflow-wrap: initial;
-    width: auto;
 `
 
 const TodoList: React.FC = () => {
