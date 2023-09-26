@@ -2,14 +2,14 @@ import axios from 'axios';
 import { Todo } from '../model';
 
 
-export interface ListService {
+export interface TodoService {
     getList(id: number): Promise<Todo>;
     getLists(): Promise<Array<Todo>>;
     addTodo(name: string): Promise<Todo>;
     deleteTodo(id: number): Promise<void>;
 }
 
-class _ListService implements ListService {
+class _TodoService implements TodoService {
     async getList(id: number): Promise<Todo> {
         const response = await axios.get(`/api/list/${id}`);
 
@@ -33,4 +33,4 @@ class _ListService implements ListService {
     }
 }
 
-export const listService = new _ListService();
+export const todoService = new _TodoService();

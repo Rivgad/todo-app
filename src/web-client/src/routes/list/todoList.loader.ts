@@ -1,9 +1,9 @@
 import { defer } from 'react-router-dom';
-import { listService } from '../../services/listService';
+import { todoService } from '../../services/todoService';
 
 
 export const todoListLoader = async () => {
     return defer({
-        items: listService.getLists()
+        items: todoService.getLists()
     })
 };

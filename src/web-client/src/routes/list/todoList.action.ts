@@ -1,5 +1,5 @@
 import { ActionFunctionArgs } from 'react-router-dom';
-import { listService } from '../../services/listService';
+import { todoService } from '../../services/todoService';
 
 
 export const todoListAction = async ({ request }: ActionFunctionArgs) => {
@@ -9,7 +9,7 @@ export const todoListAction = async ({ request }: ActionFunctionArgs) => {
 
         if (name) {
             try {
-                return await listService.addTodo(name);
+                return await todoService.addTodo(name);
             }
             catch (ex) {
                 return {
@@ -23,7 +23,7 @@ export const todoListAction = async ({ request }: ActionFunctionArgs) => {
 
         if (id) {
             try {
-                await listService.deleteTodo(id);
+                await todoService.deleteTodo(id);
                 return null;
             }
             catch (ex) {
