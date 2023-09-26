@@ -68,7 +68,6 @@ const TodoList: React.FC = () => {
                         }
                     >
                         {(items: Array<Todo>) => {
-                            console.log(items)
                             return items.length !== 0
                                 ? items.map((item) => (
                                     <TodoItem key={item.id}>
