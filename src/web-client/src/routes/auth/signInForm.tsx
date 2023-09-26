@@ -1,7 +1,7 @@
 import { useFetcher } from "react-router-dom";
-import { InputGroup, Label, Input, StyledLink } from "./components";
+import { InputGroup, Label, Input } from "./components";
 import { ErrorComponent } from "../../components/errorComponent";
-import { Button } from "../../components";
+import { Button, BaseLink } from "../../components";
 
 
 export const SignInForm: React.FC = () => {
@@ -28,9 +28,9 @@ export const SignInForm: React.FC = () => {
                 <ErrorComponent message={fetcher.data?.error || 'Произошла ошибка. Пожалуйста, попробуйте снова.'}/>
             }
 
-            <StyledLink to={'/signup'}>
+            <BaseLink to={'/signup'}>
                 <p>Нет аккаунта? Зарегистрироваться</p>
-            </StyledLink>
+            </BaseLink>
         </fetcher.Form>
     );
 };

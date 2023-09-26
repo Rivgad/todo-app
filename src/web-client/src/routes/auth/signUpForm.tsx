@@ -1,7 +1,7 @@
 import { useFetcher } from "react-router-dom";
-import { InputGroup, Label, Input, StyledLink } from "./components";
+import { InputGroup, Label, Input } from "./components";
 import { ErrorComponent } from "../../components/errorComponent";
-import { Button } from "../../components";
+import { Button, BaseLink } from "../../components";
 
 
 export const SignUpForm: React.FC = () => {
@@ -33,9 +33,9 @@ export const SignUpForm: React.FC = () => {
                 Зарегистрироваться
             </Button>
 
-            <StyledLink to={'/signin'}>
+            <BaseLink to={'/signin'}>
                 <p>Уже есть аккаунт? Войти</p>
-            </StyledLink>
+            </BaseLink>
         </fetcher.Form>
     );
 };
