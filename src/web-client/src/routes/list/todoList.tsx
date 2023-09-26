@@ -40,7 +40,7 @@ const TodoList: React.FC = () => {
     const data = useLoaderData() as { items: Array<Todo> };
     const fetcher = useFetcher();
 
-    const addTodoList = () => {
+    const addTodo = () => {
         const name = prompt("Введите название:");
         if (name) {
             fetcher.submit({ name: name }, {
@@ -83,7 +83,7 @@ const TodoList: React.FC = () => {
             <Button
                 style={{ margin: '1rem auto', width: '100%' }}
                 disabled={fetcher.state === "submitting"}
-                onClick={addTodoList}
+                onClick={addTodo}
             >
                 Создать
             </Button>
