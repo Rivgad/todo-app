@@ -1,8 +1,8 @@
 import React from 'react';
 import { Await, useFetcher, useLoaderData } from 'react-router-dom';
 import styled from 'styled-components';
-import { Todo } from '../../services/listService';
 import { BaseLink, Button, ErrorComponent, RedButton } from '../../components';
+import { Todo } from '../../model';
 
 const Container = styled.div`
     display: flex;

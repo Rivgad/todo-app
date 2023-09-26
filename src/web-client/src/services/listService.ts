@@ -1,16 +1,6 @@
 import axios from 'axios';
+import { Todo } from '../model';
 
-export interface Task {
-    id: number;
-    name: string;
-    done: boolean;
-}
-
-export interface Todo {
-    id: number;
-    name: string;
-    tasks: Array<Task> | undefined
-}
 
 export interface ListService {
     getList(id: number): Promise<Todo>;
