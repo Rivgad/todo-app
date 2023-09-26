@@ -53,7 +53,7 @@ const TodoList: React.FC = () => {
                         {(items: Array<Todo>) => {
                             return items.length !== 0
                                 ? items.map((item) => (
-                                    <TodoItemContainer>
+                                    <TodoItemContainer key={item.id}>
                                         <Link to={`/list/${item.id}`}>
                                             {item.name}
                                         </Link>
