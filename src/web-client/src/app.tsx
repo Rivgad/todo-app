@@ -11,6 +11,7 @@ import { SignUpForm } from "./routes/auth/signUpForm";
 import { SignInForm } from "./routes/auth/signInForm";
 import TodoList from "./routes/list/todoList";
 import { todoListLoader } from "./routes/list/todoList.loader";
+import { todoListAction } from "./routes/list/todoList.action";
 
 const accessToken = Cookies.get('accessToken')
 if (accessToken) {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
                     }
                     return await todoListLoader()
                 }
+            },
+            {
+                path: "/list",
+                action: todoListAction,
             }
         ]
     },
