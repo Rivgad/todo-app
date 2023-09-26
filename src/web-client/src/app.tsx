@@ -7,19 +7,27 @@ import { signInAction } from "./routes/auth/signInAction";
 import { signUpAction } from "./routes/auth/signUpAction";
 import { SignUpForm } from "./routes/auth/signUpForm";
 import { SignInForm } from "./routes/auth/signInForm";
+import TodoList from "./routes/list/todoList";
+import { todoListLoader } from "./routes/list/todoList.loader";
+
 
 const router = createBrowserRouter([
     {
         id: "root",
         path: "/",
-        loader() {
-            if (authService.isAuthenticated) {
-                return {};
-            }
-
-            return redirect("/signin");
-        },
         Component: Layout,
+        children: [
+            {
+                index: true,
+                Component: TodoList,
+                loader: async ()=>{
+                    if (!authService.isAuthenticated) {
+                        return redirect("/signin");
+                    }
+                    return await todoListLoader()
+                }
+            }
+        ]
     },
     {
         Component: AuthPage,
