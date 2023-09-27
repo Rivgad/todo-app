@@ -3,7 +3,7 @@ import { Task, Todo } from '../model';
 
 
 export interface TodoService {
-    addTask(todoId: number, taskName:string): Promise<Task>;
+    addTask(todoId: number, taskName: string): Promise<Task>;
     getList(id: number): Promise<Todo>;
     getLists(): Promise<Array<Todo>>;
     addTodo(name: string): Promise<Todo>;
@@ -22,7 +22,17 @@ class _TodoService implements TodoService {
             name: taskName
         })
 
-        return response.data as Task
+        return response.data as Task;
+    }
+
+    async updateTask(todoId: number, task: Task): Promise<Task> {
+        const response = await axios.put(`/api/list/${todoId}/${task.id}`, task);
+
+        return response.data as Task;
+    }
+
+    async deleteTask(todoId: number, taskId: number): Promise<void> {
+        await axios.delete(`/api/list/${todoId}/${taskId}`)
     }
 
     async getLists(): Promise<Array<Todo>> {
