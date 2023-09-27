@@ -15,7 +15,7 @@ import { todoListAction } from "./routes/list/todoList.action";
 import { ErrorPage } from "./components";
 import { taskListLoader } from "./routes/list/task/taskList.loader";
 import { TaskList } from "./routes/list/task/taskList";
-import { taskListAction } from "./routes/list/task/taskList.action";
+import { createTaskAction, deleteTaskAction, updateTaskAction } from "./routes/list/task/taskList.actions";
 
 
 const accessToken = Cookies.get('accessToken')
@@ -50,7 +50,18 @@ const router = createBrowserRouter([
                         path: "/list/:id",
                         loader: taskListLoader,
                         Component: TaskList,
-                        action: taskListAction
+                    },
+                    {
+                        path: "/list/:id/create",
+                        action: createTaskAction,
+                    },
+                    {
+                        path: "/list/:id/:taskId/update",
+                        action: updateTaskAction,
+                    },
+                    {
+                        path: "/list/:id/:taskId/delete",
+                        action: deleteTaskAction,
                     },
                 ]
             },
