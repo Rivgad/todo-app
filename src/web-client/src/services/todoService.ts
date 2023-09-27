@@ -1,8 +1,9 @@
 import axios from 'axios';
-import { Todo } from '../model';
+import { Task, Todo } from '../model';
 
 
 export interface TodoService {
+    addTask(todoId: number, taskName:string): Promise<Task>;
     getList(id: number): Promise<Todo>;
     getLists(): Promise<Array<Todo>>;
     addTodo(name: string): Promise<Todo>;
@@ -14,6 +15,14 @@ class _TodoService implements TodoService {
         const response = await axios.get(`/api/list/${id}`);
 
         return response.data as Todo;
+    }
+
+    async addTask(todoId: number, taskName: string): Promise<Task> {
+        const response = await axios.post(`/api/list/${todoId}`, {
+            name: taskName
+        })
+
+        return response.data as Task
     }
 
     async getLists(): Promise<Array<Todo>> {
