@@ -16,7 +16,7 @@ export const TaskForm: React.FC = () => {
     const fetcher = useFetcher();
 
     return (
-        <fetcher.Form action={`.`} method='post'>
+        <fetcher.Form action={`create`} method='post'>
             <InputContainer>
                 <Input
                     style={{ flex: 1 }}
