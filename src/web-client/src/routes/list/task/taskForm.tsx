@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import { useFetcher } from 'react-router-dom';
-import { Button, Input } from '../../../components';
+import { Button, ErrorComponent, Input } from '../../../components';
 
 
 export const InputContainer = styled.div`
@@ -33,6 +33,7 @@ export const TaskForm: React.FC = () => {
                     Добавить пункт
                 </Button>
             </InputContainer>
+            <ErrorComponent>{fetcher.data?.error}</ErrorComponent>
         </fetcher.Form>
     );
 };
