@@ -4,6 +4,7 @@ import { Input } from '../../../components';
 import { Task } from '../../../model';
 import { ListItem } from '../styles';
 import { styled } from 'styled-components';
+import { useFetcher, useFormAction } from 'react-router-dom';
 
 
 const ActionButton = styled.button`
@@ -22,27 +23,48 @@ const ActionButton = styled.button`
 export const TaskItem: React.FC<{ task: Task; }> = ({ task }) => {
     const [item, setItem] = useState(task);
     const [isEditing, setIsEditing] = useState(false);
+    const fetcher = useFetcher();
+
+    const status = fetcher.formData?.get("status") || (task.done ? "complete" : "incomplete");
+    const isComplete = status === "complete";
 
     return (
-        <ListItem style={{ backgroundColor: item.done ? "#9cda9e" : "#ffd993" }}>
-            <ActionButton onClick={() => setItem({ ...item, done: !item.done })}>
-                {item.done
-                    ? <CheckCircle size={30} />
-                    : <CircleDashed size={30} />}
-            </ActionButton>
+        <fetcher.Form action={`${task.id}/update`} method='put'>
+            <input hidden name="id" value={item.id} readOnly />
+            <input hidden name="status" value={item.done ? "complete" : "incomplete"} readOnly />
+            <input hidden name="name" value={item.name} readOnly />
 
-            <Input
-                value={item.name}
-                onChange={(e) => setItem({ ...item, name: e.target.value })}
-                disabled={!isEditing} />
+            <ListItem style={{ backgroundColor: isComplete ? "#9cda9e" : "#ffd993" }}>
+                <ActionButton onClick={() => setItem({ ...item, done: !item.done })}>
+                    {
+                        isComplete
+                            ? <CheckCircle size={30} />
+                            : <CircleDashed size={30} />
+                    }
+                </ActionButton>
 
-            <ActionButton onClick={() => setIsEditing(!isEditing)}>
-                {isEditing ? <Check size={30} /> : <PencilSimple size={30} />}
-            </ActionButton>
+                <Input
+                    value={item.name}
+                    onChange={(e) => setItem({ ...item, name: e.target.value })}
+                    disabled={!isEditing}
+                />
 
-            <ActionButton>
-                <Trash size={30} />
-            </ActionButton>
-        </ListItem>
+                <ActionButton
+                    onClick={(e) => {
+                        if (!isEditing) e.preventDefault();
+                        setIsEditing(!isEditing)
+                    }}
+                >
+                    {
+                        isEditing
+                            ? <Check size={30} />
+                            : <PencilSimple size={30} />
+                    }
+                </ActionButton>
+                <ActionButton formAction={useFormAction("delete")}>
+                    <Trash size={30} />
+                </ActionButton>
+            </ListItem>
+        </fetcher.Form>
     );
 };
