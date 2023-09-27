@@ -13,6 +13,8 @@ import TodoList from "./routes/list/todoList";
 import { todoListLoader } from "./routes/list/todoList.loader";
 import { todoListAction } from "./routes/list/todoList.action";
 import { ErrorPage } from "./components";
+import { taskListLoader } from "./routes/list/task/taskList.loader";
+import { TaskList } from "./routes/list/task/taskList";
 
 
 const accessToken = Cookies.get('accessToken')
@@ -42,6 +44,11 @@ const router = createBrowserRouter([
                     {
                         path: "/list",
                         action: todoListAction,
+                    },
+                    {
+                        path: "/list/:id",
+                        loader: taskListLoader,
+                        Component: TaskList
                     },
                 ]
             },
