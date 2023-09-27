@@ -10,7 +10,6 @@ export const taskListLoader = async ({ params }: LoaderFunctionArgs) => {
 
     const id = Number(params.id)
     if (!Number.isInteger(id)) {
-        console.log(id);
         throw json(
             { message: "ID не является числом" },
             { status: 400 }
