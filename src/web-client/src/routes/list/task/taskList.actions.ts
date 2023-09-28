@@ -31,9 +31,7 @@ export const updateTaskAction = async ({ request, params }: ActionFunctionArgs) 
         { status: 400 }
     );
 
-    const data = await request.formData();
-    const taskId = Number(data.get("id"))
-
+    const taskId = Number(params.taskId);
     if (!Number.isInteger(taskId)) throw json(
         { message: "ID задачи не является числом" },
         { status: 400 }
@@ -60,16 +58,14 @@ export const updateTaskAction = async ({ request, params }: ActionFunctionArgs) 
     return null;
 }
 
-export const deleteTaskAction = async ({ request, params }: ActionFunctionArgs) => {
+export const deleteTaskAction = async ({ params }: ActionFunctionArgs) => {
     const todoId = Number(params.id);
     if (!Number.isInteger(todoId)) throw json(
         { message: "ID списка не является числом" },
         { status: 400 }
     );
 
-    const data = await request.formData();
-    const taskId = Number(data.get("id"))
-
+    const taskId = Number(params.taskId);
     if (!Number.isInteger(taskId)) throw json(
         { message: "ID задачи не является числом" },
         { status: 400 }
@@ -77,7 +73,7 @@ export const deleteTaskAction = async ({ request, params }: ActionFunctionArgs) 
 
     try {
         if (taskId) {
-            return await todoService.deleteTask(todoId, taskId);
+            await todoService.deleteTask(todoId, taskId);
         }
     } catch (ex) {
         return {
