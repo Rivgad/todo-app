@@ -11,8 +11,16 @@
     "predev": "node aspnetcore-https.js"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.0.13",
+    "@types/js-cookie": "^3.0.4",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/styled-components": "^5.1.27",
+    "axios": "^1.5.0",
+    "js-cookie": "^3.0.5",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.16.0",
+    "styled-components": "^6.0.8"
   },
   "devDependencies": {
     "@types/node": "^20.6.3",

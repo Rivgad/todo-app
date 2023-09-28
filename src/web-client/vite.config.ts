@@ -1,39 +1,37 @@
 import { fileURLToPath, URL } from 'node:url';
 
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 
 import fs from 'fs';
-import path from 'path';
+import path from 'path'
 
+export default ({ mode }) => {
+    process.env = {...process.env, ...loadEnv(mode, process.cwd())};
+    const API_URL = process.env.VITE_API_URL;
 
-const { keyFilePath, certFilePath } = getCerfAndKey();
-
-const API_URL = process.env.VITE_API_URL ?? "https://localhost:7283/";
-
-export default defineConfig({
-    plugins: [react()],
-    resolve: {
-        alias: {
-            '@': fileURLToPath(new URL('./src', import.meta.url))
-        }
-    },
-    server: {
-        proxy: {
-            '/api': {
-                target: API_URL,
-                changeOrigin: true,
-                secure: false,
-                rewrite: path => path.replace(/^\/api/, '')
+    return defineConfig({
+        plugins: [react()],
+        resolve: {
+            alias: {
+                '@': fileURLToPath(new URL('./src', import.meta.url))
             }
         },
-        port: 5173,
-        https: {
-            key: fs.readFileSync(keyFilePath),
-            cert: fs.readFileSync(certFilePath),
+        server: {
+            proxy: {
+                '/api': {
+                    target: API_URL,
+                    changeOrigin: true,
+                    secure: false,
+                    rewrite: path => path.replace(/^\/api/, '')
+                }
+            },
+            port: 5173,
+            https: getCerfAndKey()
         }
-    }
-})
+    });
+}
+
 
 function getCerfAndKey() {
     const baseFolder = process.env.APPDATA !== undefined && process.env.APPDATA !== ''
@@ -50,6 +48,6 @@ function getCerfAndKey() {
 
     const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
     const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
-    return { keyFilePath, certFilePath };
+    return { key: fs.readFileSync(keyFilePath), cert: fs.readFileSync(certFilePath) };
 }
 
