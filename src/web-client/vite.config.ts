@@ -26,7 +26,7 @@ export default ({ mode }) => {
                     rewrite: path => path.replace(/^\/api/, '')
                 }
             },
-            port: 5173,
+            port: 8080,
             https: getCerfAndKey()
         }
     });
