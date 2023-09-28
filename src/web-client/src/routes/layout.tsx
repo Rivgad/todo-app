@@ -2,6 +2,8 @@ import React from 'react';
 import { Outlet, useFetcher } from 'react-router-dom';
 import styled from 'styled-components';
 import { RedButton } from '../components';
+import { Link } from 'react-router-dom';
+import { House } from '@phosphor-icons/react';
 
 const MainContainer = styled.div`
     display: flex;
@@ -31,15 +33,31 @@ const Content = styled.div`
     overflow-y: auto;
 `;
 
+const HeaderLink = styled(Link)`
+    color: inherit;
+    transition: color 0.3s ease;
+`
+
+const NavPanel = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+`;
+
 const Layout: React.FC = () => {
     const fetcher = useFetcher()
 
     return (
         <MainContainer>
             <Header>
-                <HeaderTitle>
-                    Todo App
-                </HeaderTitle>
+                <NavPanel>
+                    <HeaderTitle>
+                        Todo App
+                    </HeaderTitle>
+                    <HeaderLink to="/">
+                        <House size={30}/>
+                    </HeaderLink>
+                </NavPanel>
                 <fetcher.Form action='/logout'>
                     <RedButton type='submit'>
                         Выйти
