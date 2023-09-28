@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { Check, CheckCircle, CircleDashed, PencilSimple, Trash } from '@phosphor-icons/react';
+import React from 'react';
+import { Check, CheckCircle, CircleDashed, Trash } from '@phosphor-icons/react';
 import { Input } from '../../../components';
 import { Task } from '../../../model';
 import { ListItem } from '../styles';
 import { styled } from 'styled-components';
-import { useFetcher, useFormAction } from 'react-router-dom';
+import { useFetcher } from 'react-router-dom';
 
 
 const ActionButton = styled.button`
@@ -21,50 +21,48 @@ const ActionButton = styled.button`
 `;
 
 export const TaskItem: React.FC<{ task: Task; }> = ({ task }) => {
-    const [item, setItem] = useState(task);
-    const [isEditing, setIsEditing] = useState(false);
     const fetcher = useFetcher();
-
-    const status = fetcher.formData?.get("status") || (task.done ? "complete" : "incomplete");
-    const isComplete = status === "complete";
+    const { id, name, status } = fetcher.formData?.get("task") as Task | null ?? task;
 
     return (
-        <fetcher.Form action={`${task.id}/update`} method='put'>
-            <input hidden name="id" value={item.id} readOnly />
-            <input hidden name="status" value={item.done ? "complete" : "incomplete"} readOnly />
-            <input hidden name="name" value={item.name} readOnly />
+        <ListItem style={{ backgroundColor: status == "Finished" ? "#9cda9e" : "#ffd993" }}>
+            <fetcher.Form
+                action={`${task.id}/update`}
+                method="put"
+                style={{ display: "inherit", flex: 1 }}
+            >
+                <input hidden defaultValue={status} name="status" />
 
-            <ListItem style={{ backgroundColor: isComplete ? "#9cda9e" : "#ffd993" }}>
-                <ActionButton onClick={() => setItem({ ...item, done: !item.done })}>
+                <ActionButton onClick={(e) => {
+                    e.preventDefault();
+                    fetcher.submit(
+                        { id: id, name: name, status: status == "Unfinished" ? "Finished" : "Unfinished" },
+                        { action: `${id}/update`, method: "put" }
+                    )
+                }}>
                     {
-                        isComplete
+                        status == "Finished"
                             ? <CheckCircle size={30} />
                             : <CircleDashed size={30} />
                     }
                 </ActionButton>
 
                 <Input
-                    value={item.name}
-                    onChange={(e) => setItem({ ...item, name: e.target.value })}
-                    disabled={!isEditing}
+                    type="text"
+                    name="name"
+                    defaultValue={name}
                 />
 
-                <ActionButton
-                    onClick={(e) => {
-                        if (!isEditing) e.preventDefault();
-                        setIsEditing(!isEditing)
-                    }}
-                >
-                    {
-                        isEditing
-                            ? <Check size={30} />
-                            : <PencilSimple size={30} />
-                    }
+                <ActionButton type="submit">
+                    <Check size={30} />
                 </ActionButton>
-                <ActionButton formAction={useFormAction("delete")}>
+            </fetcher.Form>
+
+            <fetcher.Form action={`${task.id}/delete`} method="delete">
+                <ActionButton type='submit'>
                     <Trash size={30} />
                 </ActionButton>
-            </ListItem>
-        </fetcher.Form>
+            </fetcher.Form>
+        </ListItem>
     );
 };

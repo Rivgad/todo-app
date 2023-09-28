@@ -1,5 +1,6 @@
 import { ActionFunctionArgs, json } from 'react-router-dom';
 import { todoService } from '../../../services/todoService';
+import { TaskStatus } from '../../../model/task';
 
 
 export const createTaskAction = async ({ request, params }: ActionFunctionArgs) => {
@@ -34,18 +35,20 @@ export const updateTaskAction = async ({ request, params }: ActionFunctionArgs) 
     const taskId = Number(params.taskId);
     if (!Number.isInteger(taskId)) throw json(
         { message: "ID задачи не является числом" },
-        { status: 400 }
+        { status: 400 } 
     );
 
     try {
-        const name = data.get("name") as string | null;
-        const status = data.get("status") === "complete";
+        const data = await request.formData();
+        const name = data.get("name") as string | null ?? "";
+        const status = data.get("status") as keyof typeof TaskStatus | null ?? "Unfinished";
 
         if (taskId) {
             return await todoService.updateTask(todoId, {
                 id: taskId,
-                name: name ?? "",
-                done: status
+                name: name,
+                done: status === "Finished",
+                status: status 
             });
         }
     } catch (ex) {
