@@ -47,7 +47,6 @@ export const updateTaskAction = async ({ request, params }: ActionFunctionArgs) 
             return await todoService.updateTask(todoId, {
                 id: taskId,
                 name: name,
-                done: status === "Finished",
                 status: status 
             });
         }
