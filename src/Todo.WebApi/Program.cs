@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Npgsql;
 using System.Text;
+using Todo.Core;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,12 +38,19 @@ builder.Services
 		};
 	});
 
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+	var connectionString = new NpgsqlConnectionStringBuilder(config["Npgsql:ConnectionString"]);
+
+	options.UseNpgsql(connectionString.ToString(), x => x.MigrationsAssembly("Todo.Migrations"));
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+	app.UseSwagger();
+	app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
