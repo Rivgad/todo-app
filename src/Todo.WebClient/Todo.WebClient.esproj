@@ -11,7 +11,12 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="public\" />
     <Folder Include="src\assets\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptConfiguration Remove="public\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="public\**" />
   </ItemGroup>
 </Project>

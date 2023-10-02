@@ -68,18 +68,9 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 }
 
-
 app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapAuthEndpoints();
-
-app.MapGet(
-	"/secure",
-	[Authorize] (HttpContext context) =>
-	{
-
-		return "Super secret info!";
-	});
 
 app.Run();
