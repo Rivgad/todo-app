@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Npgsql;
 using System.Text;
-using Todo.Core;
+using Todo.Core.Context;
+using Todo.Core.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -44,6 +46,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 	options.UseNpgsql(connectionStringBuilder.ConnectionString, x => x.MigrationsAssembly("Todo.Migrations"));
 });
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+	.AddEntityFrameworkStores<ApplicationDbContext>()
+	.AddDefaultTokenProviders();
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
