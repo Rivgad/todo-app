@@ -40,9 +40,9 @@ builder.Services
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-	var connectionString = new NpgsqlConnectionStringBuilder(config["Npgsql:ConnectionString"]);
+	var connectionStringBuilder = new NpgsqlConnectionStringBuilder(config["Npgsql:ConnectionString"]);
 
-	options.UseNpgsql(connectionString.ToString(), x => x.MigrationsAssembly("Todo.Migrations"));
+	options.UseNpgsql(connectionStringBuilder.ConnectionString, x => x.MigrationsAssembly("Todo.Migrations"));
 });
 
 var app = builder.Build();
