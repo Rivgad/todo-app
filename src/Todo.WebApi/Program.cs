@@ -11,9 +11,6 @@ using Todo.Core.Models;
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 
-
-builder.Services.AddControllers();
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -65,7 +62,5 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 app.UseAuthentication();
-
-app.MapControllers();
 
 app.Run();
