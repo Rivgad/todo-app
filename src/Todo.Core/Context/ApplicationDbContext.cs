@@ -7,6 +7,10 @@ namespace Todo.Core.Context;
 
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
+    public DbSet<TodoList> TodoLists { get; set; }
+    public DbSet<TodoItem> TodoItems { get; set; }
+
+
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
     }
@@ -16,5 +20,5 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
         base.OnModelCreating(builder);
 
         builder.ApplyConfiguration(new ApplicationUserConfiguration());
-    }
+	}
 }
