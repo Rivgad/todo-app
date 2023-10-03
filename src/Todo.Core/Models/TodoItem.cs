@@ -22,7 +22,7 @@ public class TodoItem
 
 	[Required]
 	[ForeignKey(nameof(TodoList))]
-	public Guid? TodoId { get; private set; }
+	public Guid TodoId { get; private set; }
 
-	public TodoList? Todo { get; private set; }
+	public TodoList Todo { get; private set; } = null!;
 }

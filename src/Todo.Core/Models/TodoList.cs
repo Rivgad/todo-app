@@ -23,5 +23,5 @@ public class TodoList
 	[ForeignKey(nameof(ApplicationUser))]
 	public string UserId { get; private set; } = null!;
 
-	public ApplicationUser? User { get; private set; }
+	public ApplicationUser User { get; private set; } = null!;
 }
