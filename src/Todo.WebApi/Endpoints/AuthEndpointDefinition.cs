@@ -9,12 +9,12 @@ namespace Todo.WebApi.Endpoints;
 
 public static class AuthEndpointDefinition
 {
-	public static WebApplication MapAuthEndpoints(this WebApplication group)
+	public static WebApplication MapAuthEndpoints(this WebApplication app)
 	{
-		group.MapPost("/signin", SignIn);
-		group.MapPost("/signup", SignUp);
+		app.MapPost("/signin", SignIn);
+		app.MapPost("/signup", SignUp);
 
-		return group;
+		return app;
 	}
 
 	public static IServiceCollection AddAuthServices(this IServiceCollection services)

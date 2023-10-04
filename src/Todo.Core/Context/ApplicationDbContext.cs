@@ -7,14 +7,18 @@ namespace Todo.Core.Context;
 
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-    {
-    }
+	public DbSet<TodoList> TodoLists { get; set; }
+	public DbSet<TodoItem> TodoItems { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder builder)
-    {
-        base.OnModelCreating(builder);
 
-        builder.ApplyConfiguration(new ApplicationUserConfiguration());
-    }
+	public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+	{
+	}
+
+	protected override void OnModelCreating(ModelBuilder builder)
+	{
+		base.OnModelCreating(builder);
+
+		builder.ApplyConfiguration(new ApplicationUserConfiguration());
+	}
 }
