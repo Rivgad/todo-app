@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Migrations", "Todo.Migrations\Todo.Migrations.csproj", "{B888C584-3840-43FC-9437-DF1222D74BB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todo.Migrations", "Todo.Migrations\Todo.Migrations.csproj", "{B888C584-3840-43FC-9437-DF1222D74BB2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todo.Core", "Todo.Core\Todo.Core.csproj", "{AA707BAB-2B7D-4484-BB99-B0667B68DC00}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todo.WebApi", "Todo.WebApi\Todo.WebApi.csproj", "{F325BE32-1422-4B75-8724-17B423403B9B}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Todo.WebClient", "Todo.WebClient\Todo.WebClient.esproj", "{5920CA6C-9C2B-4455-8839-96A50A109C07}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "WebClient", "WebClient\WebClient.esproj", "{AE2B55BC-4A4B-49DC-9914-ABF60DDA7105}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,12 +29,12 @@ Global
 		{F325BE32-1422-4B75-8724-17B423403B9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F325BE32-1422-4B75-8724-17B423403B9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F325BE32-1422-4B75-8724-17B423403B9B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5920CA6C-9C2B-4455-8839-96A50A109C07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5920CA6C-9C2B-4455-8839-96A50A109C07}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5920CA6C-9C2B-4455-8839-96A50A109C07}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{5920CA6C-9C2B-4455-8839-96A50A109C07}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5920CA6C-9C2B-4455-8839-96A50A109C07}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5920CA6C-9C2B-4455-8839-96A50A109C07}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{AE2B55BC-4A4B-49DC-9914-ABF60DDA7105}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE2B55BC-4A4B-49DC-9914-ABF60DDA7105}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE2B55BC-4A4B-49DC-9914-ABF60DDA7105}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{AE2B55BC-4A4B-49DC-9914-ABF60DDA7105}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE2B55BC-4A4B-49DC-9914-ABF60DDA7105}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE2B55BC-4A4B-49DC-9914-ABF60DDA7105}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
