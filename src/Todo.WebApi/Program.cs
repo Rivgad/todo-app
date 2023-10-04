@@ -14,6 +14,8 @@ builder.Services.AddAuthorization();
 builder.Services.ConfigureJwtAuthentication(config);
 
 builder.Services.AddAuthServices();
+builder.Services.AddTodoListServices();
+builder.Services.AddTodoItemsServices();
 
 var app = builder.Build();
 
@@ -27,5 +29,15 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapAuthEndpoints();
+
+app.MapGroup("/list")
+	.RequireAuthorization()
+	.WithTags("Todo List")
+	.MapTodoEndpoints();
+
+app.MapGroup("/list")
+	.RequireAuthorization()
+	.WithTags("Todo Item")
+	.MapTodoItemEndpoints();
 
 app.Run();
