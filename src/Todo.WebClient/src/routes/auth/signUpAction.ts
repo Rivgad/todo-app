@@ -5,11 +5,11 @@ import { authService } from "../../services/authService";
 export const signUpAction = async({ request }: LoaderFunctionArgs) => {
     const formData = await request.formData();
 
-    const email = formData.get("email") as string | null;
+    const username = formData.get("username") as string | null;
     const password = formData.get("password") as string | null;
     const confirmPassword = formData.get("confirmPassword") as string | null;
 
-    if (!email) {
+    if (!username) {
         return {
             error: "Введите почту",
         };
@@ -26,7 +26,7 @@ export const signUpAction = async({ request }: LoaderFunctionArgs) => {
     }
 
     try {
-        await authService.signup(email, password);
+        await authService.signup(username, password);
     }
     catch (error) {
         return {

@@ -24,48 +24,47 @@ public static class AuthEndpointDefinition
 		return services;
 	}
 
-	public record AuthRequest(string username, string password);
+	public record AuthRequest(string Username, string Password);
 
-	public static async Task<Results<Ok<string>, BadRequest>> SignIn(
+	public record TokenResponse(string AccessToken);
+
+	public static async Task<Results<Ok<TokenResponse>, BadRequest>> SignIn(
 		UserManager<ApplicationUser> userManager,
 		ITokenService tokenService,
 		AuthRequest request)
 	{
-		var user = await userManager.FindByNameAsync(request.username);
+		var user = await userManager.FindByNameAsync(request.Username);
 
 		if (user == null)
 			return TypedResults.BadRequest();
 
-		if (!await userManager.CheckPasswordAsync(user, request.password))
+		if (!await userManager.CheckPasswordAsync(user, request.Password))
 			return TypedResults.BadRequest();
 
 		var token = tokenService.CreateToken(
 			new Claim(ClaimTypes.Name, user.UserName!),
 			new Claim(ClaimTypes.NameIdentifier, user.Id));
 
-		return TypedResults.Ok(token);
+		return TypedResults.Ok(new TokenResponse(token));
 	}
 
-	public static async Task<Results<Ok<ApplicationUser>, BadRequest>> SignUp(
+	public static async Task<Results<Ok, BadRequest>> SignUp(
 		UserManager<ApplicationUser> userManager,
-		string username,
-		string password)
+		AuthRequest authRequest)
 	{
-		if (await userManager.FindByNameAsync(username) != null)
+		if (await userManager.FindByNameAsync(authRequest.Username) != null)
 			return TypedResults.BadRequest();
 
 		var result = await userManager.CreateAsync(
 			new ApplicationUser()
 			{
-				UserName = username,
+				UserName = authRequest.Username,
 			},
-			password);
+			authRequest.Password);
 
 		if (!result.Succeeded)
 			return TypedResults.BadRequest();
 
-		var user = await userManager.FindByNameAsync(username);
-
-		return TypedResults.Ok(user);
+		return TypedResults.Ok();
 	}
 }
