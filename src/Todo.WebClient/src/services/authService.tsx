@@ -3,9 +3,9 @@ import Cookies from 'js-cookie'
 
 export interface AuthService {
     isAuthenticated: boolean;
-    signin(email: string, password: string): Promise<void>;
+    signin(username: string, password: string): Promise<void>;
     signout(): Promise<void>;
-    signup(email: string, password: string): Promise<void>;
+    signup(username: string, password: string): Promise<void>;
 }
 
 class _AuthService implements AuthService {
@@ -13,9 +13,9 @@ class _AuthService implements AuthService {
         return Cookies.get('accessToken') != null
     }
 
-    async signin(email: string, password: string): Promise<void> {
+    async signin(username: string, password: string): Promise<void> {
         const response = await axios.post('/api/signin', {
-            "email": email,
+            "username": username,
             "password": password
         })
 
@@ -29,9 +29,9 @@ class _AuthService implements AuthService {
         delete axios.defaults.headers.common["Authorization"];
     }
 
-    async signup(email: string, password: string): Promise<void> {
+    async signup(username: string, password: string): Promise<void> {
         await axios.post('/api/signup', {
-            "email": email,
+            "username": username,
             "password": password
         })
     }

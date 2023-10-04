@@ -5,12 +5,12 @@ import { authService } from "../../services/authService";
 export const signInAction = async({ request }: LoaderFunctionArgs) => {
     const formData = await request.formData();
 
-    const email = formData.get("email") as string | null;
+    const username = formData.get("username") as string | null;
     const password = formData.get("password") as string | null;
 
-    if (!email) {
+    if (!username) {
         return {
-            error: "Введите почту",
+            error: "Введите логин",
         };
     }
     if (!password) {
@@ -20,7 +20,7 @@ export const signInAction = async({ request }: LoaderFunctionArgs) => {
     }
 
     try {
-        await authService.signin(email, password);
+        await authService.signin(username, password);
     }
     catch (error) {
         return {

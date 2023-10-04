@@ -9,8 +9,8 @@ export const SignUpForm: React.FC = () => {
     return (
         <fetcher.Form method="post" action="/signup">
             <InputGroup>
-                <Label htmlFor="email">Email</Label>
-                <Input type="email" id="input-email" name="email" required />
+                <Label htmlFor="username">Логин</Label>
+                <Input type="text" id="input-username" name="username" required />
             </InputGroup>
 
             <InputGroup>
