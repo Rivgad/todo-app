@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { Task, Todo } from '../model';
+import API from './api';
 
 
 export interface TodoService {
@@ -12,13 +12,13 @@ export interface TodoService {
 
 class _TodoService implements TodoService {
     async getList(id: number): Promise<Todo> {
-        const response = await axios.get(`/api/list/${id}`);
+        const response = await API.get(`/api/list/${id}`);
 
         return response.data as Todo;
     }
 
     async addTask(todoId: number, taskName: string): Promise<Task> {
-        const response = await axios.post(`/api/list/${todoId}`, {
+        const response = await API.post(`/api/list/${todoId}`, {
             name: taskName
         })
 
@@ -26,29 +26,29 @@ class _TodoService implements TodoService {
     }
 
     async updateTask(todoId: number, task: Task): Promise<Task> {
-        const response = await axios.put(`/api/list/${todoId}/${task.id}`, task);
+        const response = await API.put(`/api/list/${todoId}/${task.id}`, task);
 
         return response.data as Task;
     }
 
     async deleteTask(todoId: number, taskId: number): Promise<void> {
-        await axios.delete(`/api/list/${todoId}/${taskId}`)
+        await API.delete(`/api/list/${todoId}/${taskId}`)
     }
 
     async getLists(): Promise<Array<Todo>> {
-        const response = await axios.get('/api/list');
+        const response = await API.get('/api/list');
 
         return response.data as Array<Todo>;
     }
 
     async addTodo(name: string): Promise<Todo> {
-        const response = await axios.post('/api/list', { name: name });
+        const response = await API.post('/api/list', { name: name });
 
         return response.data as Todo;
     }
 
     async deleteTodo(id: number): Promise<void> {
-        await axios.delete(`/api/list/${id}`);
+        await API.delete(`/api/list/${id}`);
     }
 }
 

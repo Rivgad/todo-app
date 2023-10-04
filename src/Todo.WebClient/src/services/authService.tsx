@@ -1,5 +1,4 @@
-import axios from 'axios';
-import Cookies from 'js-cookie'
+import API from './api';
 
 export interface AuthService {
     isAuthenticated: boolean;
@@ -10,27 +9,25 @@ export interface AuthService {
 
 class _AuthService implements AuthService {
     get isAuthenticated(): boolean {
-        return Cookies.get('accessToken') != null
+        const token = localStorage.getItem('accessToken');
+        return token != null && token !== "";
     }
 
     async signin(username: string, password: string): Promise<void> {
-        const response = await axios.post('/api/signin', {
+        const response = await API.post('/api/signin', {
             "username": username,
             "password": password
         })
-
-        const accessToken = response.data.accessToken
-        Cookies.set('accessToken', accessToken)
-        axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`
+        const accessToken = response.data.accessToken;
+        localStorage.setItem("accessToken", accessToken);
     }
 
     async signout(): Promise<void> {
-        Cookies.remove('accessToken')
-        delete axios.defaults.headers.common["Authorization"];
+        localStorage.removeItem('accessToken')
     }
 
     async signup(username: string, password: string): Promise<void> {
-        await axios.post('/api/signup', {
+        await API.post('/api/signup', {
             "username": username,
             "password": password
         })
