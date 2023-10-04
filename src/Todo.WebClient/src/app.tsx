@@ -1,6 +1,4 @@
 import { RouterProvider, createBrowserRouter, redirect } from "react-router-dom";
-import Cookies from 'js-cookie'
-import axios from "axios";
 
 import { authService } from "./services/authService";
 import Layout from "./routes/layout";
@@ -17,11 +15,6 @@ import { taskListLoader } from "./routes/list/task/taskList.loader";
 import { TaskList } from "./routes/list/task/taskList";
 import { createTaskAction, deleteTaskAction, updateTaskAction } from "./routes/list/task/taskList.actions";
 
-
-const accessToken = Cookies.get('accessToken')
-if (accessToken) {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`
-}
 
 const router = createBrowserRouter([
     {
