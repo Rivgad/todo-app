@@ -10,13 +10,4 @@
     <!-- Folder where production build objects will be placed -->
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist</BuildOutputFolder>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="src\assets\" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptConfiguration Remove="public\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="public\**" />
-  </ItemGroup>
 </Project>
