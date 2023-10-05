@@ -14,7 +14,7 @@ export const createTaskAction = async ({ request, params }: ActionFunctionArgs) 
 
     try {
         if (name) {
-            return await todoService.addTask(todoId, name);
+            return await todoService.addTodoItem(todoId, name);
         }
     } catch (ex) {
         return {
@@ -44,7 +44,7 @@ export const updateTaskAction = async ({ request, params }: ActionFunctionArgs) 
         const status = data.get("status") as keyof typeof TodoItemStatus | null ?? "Unfinished";
 
         if (taskId) {
-            return await todoService.updateTask(todoId, {
+            return await todoService.updateTodoItem(todoId, {
                 id: taskId,
                 name: name,
                 status: status 
@@ -75,7 +75,7 @@ export const deleteTaskAction = async ({ params }: ActionFunctionArgs) => {
 
     try {
         if (taskId) {
-            await todoService.deleteTask(todoId, taskId);
+            await todoService.deleteTodoItem(todoId, taskId);
         }
     } catch (ex) {
         return {

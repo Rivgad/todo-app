@@ -7,9 +7,9 @@ export interface TodoService {
     getTodoList(id: number): Promise<TodoList>;
     addTodoList(name: string): Promise<TodoList>;
     deleteTodoList(id: number): Promise<void>;
-    addTask(todoId: number, taskName: string): Promise<TodoItem>;
-    updateTask(todoId: number, task: TodoItem): Promise<TodoItem>;
-    deleteTask(todoId: number, taskId: number): Promise<void>;
+    addTodoItem(todoId: number, taskName: string): Promise<TodoItem>;
+    updateTodoItem(todoId: number, task: TodoItem): Promise<TodoItem>;
+    deleteTodoItem(todoId: number, taskId: number): Promise<void>;
 }
 
 class _TodoService implements TodoService {
@@ -35,7 +35,7 @@ class _TodoService implements TodoService {
         await API.delete(`/api/list/${id}`);
     }
 
-    async addTask(todoId: number, taskName: string): Promise<TodoItem> {
+    async addTodoItem(todoId: number, taskName: string): Promise<TodoItem> {
         const response = await API.post(`/api/list/${todoId}`, {
             name: taskName
         })
@@ -43,13 +43,13 @@ class _TodoService implements TodoService {
         return response.data as TodoItem;
     }
 
-    async updateTask(todoId: number, task: TodoItem): Promise<TodoItem> {
+    async updateTodoItem(todoId: number, task: TodoItem): Promise<TodoItem> {
         const response = await API.put(`/api/list/${todoId}/${task.id}`, task);
 
         return response.data as TodoItem;
     }
 
-    async deleteTask(todoId: number, taskId: number): Promise<void> {
+    async deleteTodoItem(todoId: number, taskId: number): Promise<void> {
         await API.delete(`/api/list/${todoId}/${taskId}`)
     }
 }
