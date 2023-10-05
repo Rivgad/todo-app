@@ -17,6 +17,9 @@ public class TodoList
 	[MaxLength(300)]
 	public string Name { get; set; }
 
+	[Required]
+	public DateTime CreatedAt { get; set; }
+
 	public List<TodoItem> Items { get; } = new();
 
 	[Required]

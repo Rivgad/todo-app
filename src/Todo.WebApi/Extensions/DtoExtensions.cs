@@ -6,7 +6,7 @@ namespace Todo.WebApi.Extensions;
 public static class DtoExtensions
 {
     public static TodoListDto ToDto(this TodoList item)
-        => new(item.Id, item.Name, item.Items.Select(item => item.ToDto()).ToList());
+        => new(item.Id, item.Name, item.CreatedAt, item.Items.Select(item => item.ToDto()).ToList());
 
     public static TodoItemDto ToDto(this TodoItem item)
         => new(item.Id, item.Name, item.Status);

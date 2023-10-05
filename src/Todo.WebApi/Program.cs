@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Internal;
 using Todo.WebApi.Endpoints;
 using Todo.WebApi.Extensions;
 
@@ -16,6 +17,7 @@ builder.Services.ConfigureJwtAuthentication(config);
 builder.Services.AddAuthServices();
 builder.Services.AddTodoListServices();
 builder.Services.AddTodoItemsServices();
+builder.Services.AddSingleton<ISystemClock, SystemClock>();
 
 var app = builder.Build();
 
