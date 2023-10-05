@@ -3,7 +3,7 @@ import { todoService } from '../../services/todoService';
 import { UUID } from 'crypto';
 
 
-export const todoListAction = async ({ request }: ActionFunctionArgs) => {
+export const todoListsAction = async ({ request }: ActionFunctionArgs) => {
     if (request.method == "POST") {
         const data = await request.formData();
         const name = data.get("name") as string | null;

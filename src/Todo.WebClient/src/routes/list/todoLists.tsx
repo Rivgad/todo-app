@@ -13,7 +13,7 @@ const Link = styled(BaseLink)`
     padding: 1rem;
 `
 
-const TodoListComponent: React.FC = () => {
+const TodoLists: React.FC = () => {
     const data = useLoaderData() as { items: Array<TodoList> };
     const fetcher = useFetcher();
 
@@ -71,4 +71,4 @@ const TodoListComponent: React.FC = () => {
     );
 };
 
-export default TodoListComponent;
+export default TodoLists;
