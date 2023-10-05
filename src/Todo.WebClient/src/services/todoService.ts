@@ -8,6 +8,8 @@ export interface TodoService {
     addTodoList(name: string): Promise<Todo>;
     deleteTodoList(id: number): Promise<void>;
     addTask(todoId: number, taskName: string): Promise<Task>;
+    updateTask(todoId: number, task: Task): Promise<Task>;
+    deleteTask(todoId: number, taskId: number): Promise<void>;
 }
 
 class _TodoService implements TodoService {
