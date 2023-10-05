@@ -4,6 +4,7 @@ export interface TodoItem {
     id: UUID;
     name: string;
     status?: keyof typeof TodoItemStatus;
+    createdAt: Date
 }
 
 export enum TodoItemStatus {
