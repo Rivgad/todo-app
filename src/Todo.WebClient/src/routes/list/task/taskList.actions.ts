@@ -27,15 +27,9 @@ export const createTaskAction = async ({ request, params }: ActionFunctionArgs) 
 }
 
 export const updateTaskAction = async ({ request, params }: ActionFunctionArgs) => {
-    const todoId = Number(params.id);
-    if (!Number.isInteger(todoId)) throw json(
-        { message: "ID списка не является числом" },
-        { status: 400 }
-    );
-
-    const taskId = Number(params.taskId);
-    if (!Number.isInteger(taskId)) throw json(
-        { message: "ID задачи не является числом" },
+    const taskId = params.taskId as UUID | null;
+    if (!taskId) throw json(
+        { message: "Неверный ID задачи" },
         { status: 400 } 
     );
 
@@ -45,7 +39,7 @@ export const updateTaskAction = async ({ request, params }: ActionFunctionArgs) 
         const status = data.get("status") as keyof typeof TodoItemStatus | null ?? "Unfinished";
 
         if (taskId) {
-            return await todoService.updateTodoItem(todoId, {
+            return await todoService.updateTodoItem({
                 id: taskId,
                 name: name,
                 status: status 
