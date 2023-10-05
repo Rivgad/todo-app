@@ -1,4 +1,4 @@
-export interface Task {
+export interface TodoItem {
     id: number;
     name: string;
     status?: keyof typeof TaskStatus;

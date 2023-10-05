@@ -1,7 +1,7 @@
 import React from 'react';
 import { Check, CheckCircle, CircleDashed, Trash } from '@phosphor-icons/react';
 import { Input } from '../../../components';
-import { Task } from '../../../model';
+import { TodoItem } from '../../../model';
 import { ListItem } from '../styles';
 import { styled } from 'styled-components';
 import { useFetcher } from 'react-router-dom';
@@ -20,9 +20,9 @@ const ActionButton = styled.button`
     }
 `;
 
-export const TaskItem: React.FC<{ task: Task; }> = ({ task }) => {
+export const TaskItem: React.FC<{ task: TodoItem; }> = ({ task }) => {
     const fetcher = useFetcher();
-    const { id, name, status } = fetcher.formData?.get("task") as Task | null ?? task;
+    const { id, name, status } = fetcher.formData?.get("task") as TodoItem | null ?? task;
 
     return (
         <ListItem style={{ backgroundColor: status == "Finished" ? "#9cda9e" : "#ffd993" }}>

@@ -1,7 +1,7 @@
-import { Task } from ".";
+import { TodoItem } from ".";
 
 export interface TodoList {
     id: number;
     name: string;
-    tasks: Array<Task> | undefined
+    tasks: Array<TodoItem> | undefined
 }
