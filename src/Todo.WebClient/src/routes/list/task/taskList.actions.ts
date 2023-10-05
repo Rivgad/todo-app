@@ -1,12 +1,13 @@
 import { ActionFunctionArgs, json } from 'react-router-dom';
 import { todoService } from '../../../services/todoService';
 import { TodoItemStatus } from '../../../model';
+import { UUID } from 'crypto';
 
 
 export const createTaskAction = async ({ request, params }: ActionFunctionArgs) => {
-    const todoId = Number(params.id);
-    if (!Number.isInteger(todoId)) throw json(
-        { message: "ID списка не является числом" },
+    const todoId = params.id as UUID | undefined;
+    if (!todoId) throw json(
+        { message: "Неверный ID списка" },
         { status: 400 }
     );
     const data = await request.formData();
