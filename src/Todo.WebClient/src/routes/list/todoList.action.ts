@@ -1,5 +1,6 @@
 import { ActionFunctionArgs } from 'react-router-dom';
 import { todoService } from '../../services/todoService';
+import { UUID } from 'crypto';
 
 
 export const todoListAction = async ({ request }: ActionFunctionArgs) => {
@@ -19,7 +20,7 @@ export const todoListAction = async ({ request }: ActionFunctionArgs) => {
         }
     } else if (request.method == "DELETE") {
         const data = await request.formData();
-        const id = data.get("id") as number | null;
+        const id = data.get("id") as UUID | null;
 
         if (id) {
             try {

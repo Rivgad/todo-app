@@ -1,12 +1,13 @@
+import { UUID } from 'crypto';
 import { TodoItem, TodoList } from '../model';
 import API from './api';
 
 
 export interface TodoService {
     getTodoLists(): Promise<Array<TodoList>>;
-    getTodoList(id: number): Promise<TodoList>;
+    getTodoList(id: UUID): Promise<TodoList>;
     addTodoList(name: string): Promise<TodoList>;
-    deleteTodoList(id: number): Promise<void>;
+    deleteTodoList(id: UUID): Promise<void>;
     addTodoItem(todoId: number, taskName: string): Promise<TodoItem>;
     updateTodoItem(todoId: number, task: TodoItem): Promise<TodoItem>;
     deleteTodoItem(todoId: number, taskId: number): Promise<void>;
@@ -19,7 +20,7 @@ class _TodoService implements TodoService {
         return response.data as Array<TodoList>;
     }
 
-    async getTodoList(id: number): Promise<TodoList> {
+    async getTodoList(id: UUID): Promise<TodoList> {
         const response = await API.get(`/api/list/${id}`);
 
         return response.data as TodoList;
@@ -31,7 +32,7 @@ class _TodoService implements TodoService {
         return response.data as TodoList;
     }
 
-    async deleteTodoList(id: number): Promise<void> {
+    async deleteTodoList(id: UUID): Promise<void> {
         await API.delete(`/api/list/${id}`);
     }
 

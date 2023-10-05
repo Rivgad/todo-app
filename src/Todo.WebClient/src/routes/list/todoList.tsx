@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { BaseLink, Button, ErrorComponent, Input, InputGroup } from '../../components';
 import { TodoList } from '../../model';
 import { Container, DeleteButton, ListItem, ListContainer } from './styles';
+import { UUID } from 'crypto';
 
 
 const Link = styled(BaseLink)`
@@ -16,7 +17,7 @@ const TodoListComponent: React.FC = () => {
     const data = useLoaderData() as { items: Array<TodoList> };
     const fetcher = useFetcher();
 
-    const deleteTodo = (id: number) => {
+    const deleteTodo = (id: UUID) => {
         fetcher.submit({ id: id }, {
             method: "delete",
             action: "/list"
