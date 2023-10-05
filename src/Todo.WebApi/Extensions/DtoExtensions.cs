@@ -9,5 +9,5 @@ public static class DtoExtensions
         => new(item.Id, item.Name, item.CreatedAt, item.Items.Select(item => item.ToDto()).ToList());
 
     public static TodoItemDto ToDto(this TodoItem item)
-        => new(item.Id, item.Name, item.Status);
+        => new(item.Id, item.Name, item.Status, item.CreatedAt);
 }

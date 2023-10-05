@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Internal;
 using Todo.Core.Context;
 using Todo.Core.Models;
 using Todo.Core.Services.Interfaces;
@@ -8,10 +9,14 @@ namespace Todo.Core.Services;
 public class TodoItemsRepository : ITodoItemsRepository
 {
 	private readonly ApplicationDbContext _context;
+	private readonly ISystemClock _systemClock;
 
-	public TodoItemsRepository(ApplicationDbContext context)
+	public TodoItemsRepository(
+		ApplicationDbContext context,
+		ISystemClock systemClock)
 	{
 		_context = context;
+		_systemClock = systemClock;
 	}
 
 	public async Task<TodoItem?> CreateTodoItemAsync(string userId, Guid todoListId, string name)
@@ -22,7 +27,10 @@ public class TodoItemsRepository : ITodoItemsRepository
 		if (todoList == null)
 			return null;
 
-		var item = new TodoItem(name);
+		var item = new TodoItem(name)
+		{
+			CreatedAt = _systemClock.UtcNow.DateTime.ToUniversalTime(),
+		};
 		todoList.Items.Add(item);
 
 		await _context.TodoItems.AddAsync(item);
