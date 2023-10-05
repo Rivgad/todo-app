@@ -1,6 +1,6 @@
 import { ActionFunctionArgs, json } from 'react-router-dom';
 import { todoService } from '../../../services/todoService';
-import { TaskStatus } from '../../../model/task';
+import { TodoItemStatus } from '../../../model';
 
 
 export const createTaskAction = async ({ request, params }: ActionFunctionArgs) => {
@@ -41,7 +41,7 @@ export const updateTaskAction = async ({ request, params }: ActionFunctionArgs) 
     try {
         const data = await request.formData();
         const name = data.get("name") as string | null ?? "";
-        const status = data.get("status") as keyof typeof TaskStatus | null ?? "Unfinished";
+        const status = data.get("status") as keyof typeof TodoItemStatus | null ?? "Unfinished";
 
         if (taskId) {
             return await todoService.updateTask(todoId, {

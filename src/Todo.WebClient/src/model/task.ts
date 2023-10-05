@@ -1,10 +1,10 @@
 export interface TodoItem {
     id: number;
     name: string;
-    status?: keyof typeof TaskStatus;
+    status?: keyof typeof TodoItemStatus;
 }
 
-export enum TaskStatus {
+export enum TodoItemStatus {
     Unfinished = 0,
     Finished = 1,
 }
