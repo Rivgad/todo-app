@@ -1,6 +1,6 @@
 import { Task } from ".";
 
-export interface Todo {
+export interface TodoList {
     id: number;
     name: string;
     tasks: Array<Task> | undefined

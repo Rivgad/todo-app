@@ -1,3 +1,3 @@
-export type { Todo }from './todo';
+export type { TodoList }from './todo';
 export type { Task } from './task';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Await, useFetcher, useLoaderData } from 'react-router-dom';
 import styled from 'styled-components';
 import { BaseLink, Button, ErrorComponent, Input, InputGroup } from '../../components';
-import { Todo } from '../../model';
+import { TodoList } from '../../model';
 import { Container, DeleteButton, ListItem, ListContainer } from './styles';
 
 
@@ -12,8 +12,8 @@ const Link = styled(BaseLink)`
     padding: 1rem;
 `
 
-const TodoList: React.FC = () => {
-    const data = useLoaderData() as { items: Array<Todo> };
+const TodoListComponent: React.FC = () => {
+    const data = useLoaderData() as { items: Array<TodoList> };
     const fetcher = useFetcher();
 
     const deleteTodo = (id: number) => {
@@ -33,7 +33,7 @@ const TodoList: React.FC = () => {
                             <ErrorComponent>{"Не получилось загрузить список. Попробуйте перезагрузить страницу"}</ErrorComponent>
                         }
                     >
-                        {(items: Array<Todo>) => {
+                        {(items: Array<TodoList>) => {
                             return items.length !== 0
                                 ? items.map((item) => (
                                     <ListItem key={item.id}>
@@ -70,4 +70,4 @@ const TodoList: React.FC = () => {
     );
 };
 
-export default TodoList;
+export default TodoListComponent;

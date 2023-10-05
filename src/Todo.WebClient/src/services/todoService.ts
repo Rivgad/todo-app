@@ -1,11 +1,11 @@
-import { Task, Todo } from '../model';
+import { Task, TodoList } from '../model';
 import API from './api';
 
 
 export interface TodoService {
-    getTodoLists(): Promise<Array<Todo>>;
-    getTodoList(id: number): Promise<Todo>;
-    addTodoList(name: string): Promise<Todo>;
+    getTodoLists(): Promise<Array<TodoList>>;
+    getTodoList(id: number): Promise<TodoList>;
+    addTodoList(name: string): Promise<TodoList>;
     deleteTodoList(id: number): Promise<void>;
     addTask(todoId: number, taskName: string): Promise<Task>;
     updateTask(todoId: number, task: Task): Promise<Task>;
@@ -13,22 +13,22 @@ export interface TodoService {
 }
 
 class _TodoService implements TodoService {
-    async getTodoLists(): Promise<Array<Todo>> {
+    async getTodoLists(): Promise<Array<TodoList>> {
         const response = await API.get('/api/list');
 
-        return response.data as Array<Todo>;
+        return response.data as Array<TodoList>;
     }
 
-    async getTodoList(id: number): Promise<Todo> {
+    async getTodoList(id: number): Promise<TodoList> {
         const response = await API.get(`/api/list/${id}`);
 
-        return response.data as Todo;
+        return response.data as TodoList;
     }
 
-    async addTodoList(name: string): Promise<Todo> {
+    async addTodoList(name: string): Promise<TodoList> {
         const response = await API.post('/api/list', { name: name });
 
-        return response.data as Todo;
+        return response.data as TodoList;
     }
 
     async deleteTodoList(id: number): Promise<void> {
