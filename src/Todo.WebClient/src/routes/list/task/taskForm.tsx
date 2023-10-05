@@ -24,6 +24,7 @@ export const TaskForm: React.FC = () => {
                     name='name'
                     value={text}
                     onChange={(e) => setText(e.target.value)}
+                    maxLength={300}
                     placeholder="Введите текст..." />
                 <Button
                     disabled={fetcher.state == "submitting"}

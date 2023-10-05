@@ -51,6 +51,7 @@ export const TaskItem: React.FC<{ task: TodoItem; }> = ({ task }) => {
                     type="text"
                     name="name"
                     defaultValue={name}
+                    maxLength={300}
                 />
 
                 <ActionButton type="submit">
