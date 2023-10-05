@@ -1,3 +1,3 @@
-export type { TodoList }from './todo';
-export type { TodoItem } from './task';
-export type { TodoItemStatus } from './task'
+export type { TodoList }from './todoList';
+export type { TodoItem } from './todoItem';
+export type { TodoItemStatus } from './todoItem'
