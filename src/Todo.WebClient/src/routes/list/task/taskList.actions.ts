@@ -39,8 +39,7 @@ export const updateTaskAction = async ({ request, params }: ActionFunctionArgs) 
         const status = data.get("status") as keyof typeof TodoItemStatus | null ?? "Unfinished";
 
         if (taskId) {
-            return await todoService.updateTodoItem({
-                id: taskId,
+            return await todoService.updateTodoItem(taskId, {
                 name: name,
                 status: status 
             });

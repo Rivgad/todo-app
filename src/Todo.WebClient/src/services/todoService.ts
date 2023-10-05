@@ -1,5 +1,5 @@
 import { UUID } from 'crypto';
-import { TodoItem, TodoList } from '../model';
+import { TodoItem, TodoItemStatus, TodoList } from '../model';
 import API from './api';
 
 
@@ -9,8 +9,13 @@ export interface TodoService {
     addTodoList(name: string): Promise<TodoList>;
     deleteTodoList(id: UUID): Promise<void>;
     addTodoItem(todoListId: UUID, taskName: string): Promise<TodoItem>;
-    updateTodoItem(task: TodoItem): Promise<TodoItem>;
+    updateTodoItem(taskId: UUID, request: UpdateTodoItemRequest): Promise<TodoItem>;
     deleteTodoItem(taskId: UUID): Promise<void>;
+}
+
+export interface UpdateTodoItemRequest {
+    name:string;
+    status: keyof typeof TodoItemStatus
 }
 
 class _TodoService implements TodoService {
@@ -23,7 +28,13 @@ class _TodoService implements TodoService {
     async getTodoList(id: UUID): Promise<TodoList> {
         const response = await API.get(`/api/list/${id}`);
 
-        return response.data as TodoList;
+        const list = response.data as TodoList;
+
+        list.tasks?.sort((item1, item2) => {
+            return item1.createdAt > item2.createdAt ? 1 : -1;
+        })
+
+        return list;
     }
 
     async addTodoList(name: string): Promise<TodoList> {
@@ -44,8 +55,8 @@ class _TodoService implements TodoService {
         return response.data as TodoItem;
     }
 
-    async updateTodoItem(task: TodoItem): Promise<TodoItem> {
-        const response = await API.put(`/api/list/items/${task.id}`, task);
+    async updateTodoItem(taskId: UUID, request: UpdateTodoItemRequest): Promise<TodoItem> {
+        const response = await API.put(`/api/list/items/${taskId}`, request);
 
         return response.data as TodoItem;
     }
