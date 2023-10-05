@@ -3,7 +3,7 @@ import { UUID } from "crypto";
 export interface TodoItem {
     id: UUID;
     name: string;
-    status?: keyof typeof TodoItemStatus;
+    status: keyof typeof TodoItemStatus;
     createdAt: Date
 }
 

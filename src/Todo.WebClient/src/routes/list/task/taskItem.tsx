@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Check, CheckCircle, CircleDashed, Trash } from '@phosphor-icons/react';
 import { Input } from '../../../components';
 import { TodoItem } from '../../../model';
@@ -22,7 +22,8 @@ const ActionButton = styled.button`
 
 export const TaskItem: React.FC<{ task: TodoItem; }> = ({ task }) => {
     const fetcher = useFetcher();
-    const { id, name, status } = fetcher.formData?.get("task") as TodoItem | null ?? task;
+    const [name, setName] = useState(task.name);
+    const [status, setStatus] = useState(task.status);
 
     return (
         <ListItem style={{ backgroundColor: status == "Finished" ? "#9cda9e" : "#ffd993" }}>
@@ -30,15 +31,18 @@ export const TaskItem: React.FC<{ task: TodoItem; }> = ({ task }) => {
                 action={`${task.id}/update`}
                 method="put"
                 style={{ display: "inherit", flex: 1 }}
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    fetcher.submit(
+                        { id: task.id, name: name, status: status },
+                        { action: `${task.id}/update`, method: "put" }
+                    )
+                }}
             >
                 <input hidden defaultValue={status} name="status" />
 
-                <ActionButton onClick={(e) => {
-                    e.preventDefault();
-                    fetcher.submit(
-                        { id: id, name: name, status: status == "Unfinished" ? "Finished" : "Unfinished" },
-                        { action: `${id}/update`, method: "put" }
-                    )
+                <ActionButton onClick={() => {
+                    setStatus(status === "Finished" ? "Unfinished" : "Finished");
                 }}>
                     {
                         status == "Finished"
@@ -50,8 +54,9 @@ export const TaskItem: React.FC<{ task: TodoItem; }> = ({ task }) => {
                 <Input
                     type="text"
                     name="name"
-                    defaultValue={name}
+                    value={name}
                     maxLength={300}
+                    onChange={(e) => setName(e.target.value)}
                 />
 
                 <ActionButton type="submit">
