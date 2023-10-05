@@ -1,7 +1,7 @@
 import React from 'react';
 import { Await, useFetcher, useLoaderData } from 'react-router-dom';
 import styled from 'styled-components';
-import { BaseLink, Button, ErrorComponent } from '../../components';
+import { BaseLink, Button, ErrorComponent, Input, InputGroup } from '../../components';
 import { Todo } from '../../model';
 import { Container, DeleteButton, ListItem, ListContainer } from './styles';
 
@@ -15,16 +15,6 @@ const Link = styled(BaseLink)`
 const TodoList: React.FC = () => {
     const data = useLoaderData() as { items: Array<Todo> };
     const fetcher = useFetcher();
-
-    const addTodo = () => {
-        const name = prompt("Введите название:");
-        if (name) {
-            fetcher.submit({ name: name }, {
-                method: "post",
-                action: "/list"
-            })
-        }
-    };
 
     const deleteTodo = (id: number) => {
         fetcher.submit({ id: id }, {
@@ -64,13 +54,18 @@ const TodoList: React.FC = () => {
                 </React.Suspense>
             </ListContainer>
             <ErrorComponent>{fetcher.data?.error}</ErrorComponent>
-            <Button
-                style={{ margin: '1rem auto', width: '100%' }}
-                disabled={fetcher.state === "submitting"}
-                onClick={addTodo}
-            >
-                Создать
-            </Button>
+            <fetcher.Form action="list" method="post">
+                <InputGroup>
+                    <Input type="text" placeholder="Название" maxLength={300} id="input-name" name="name" required />
+                    <Button
+                        style={{ margin: '1rem auto', width: '100%' }}
+                        disabled={fetcher.state === "submitting"}
+                        type="submit"
+                    >
+                        Создать
+                    </Button>
+                </InputGroup>
+            </fetcher.Form>
         </Container>
     );
 };
