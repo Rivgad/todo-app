@@ -1,10 +1,11 @@
 import React from 'react';
 import { Await, useFetcher, useLoaderData } from 'react-router-dom';
 import styled from 'styled-components';
-import { BaseLink, Button, ErrorComponent, Input, InputGroup } from '../../components';
+import { BaseLink, ErrorComponent } from '../../components';
 import { TodoList } from '../../model';
 import { Container, DeleteButton, ListItem, ListContainer } from './styles';
 import { UUID } from 'crypto';
+import { TodoListForm } from './todoListForm';
 
 
 const Link = styled(BaseLink)`
@@ -13,7 +14,7 @@ const Link = styled(BaseLink)`
     padding: 1rem;
 `
 
-const TodoLists: React.FC = () => {
+export const TodoLists: React.FC = () => {
     const data = useLoaderData() as { items: Array<TodoList> };
     const fetcher = useFetcher();
 
@@ -55,20 +56,7 @@ const TodoLists: React.FC = () => {
                 </React.Suspense>
             </ListContainer>
             <ErrorComponent>{fetcher.data?.error}</ErrorComponent>
-            <fetcher.Form action="/list/create" method="post">
-                <InputGroup>
-                    <Input type="text" placeholder="Название" maxLength={300} id="input-name" name="name" required />
-                    <Button
-                        style={{ margin: '1rem auto', width: '100%' }}
-                        disabled={fetcher.state === "submitting"}
-                        type="submit"
-                    >
-                        Создать
-                    </Button>
-                </InputGroup>
-            </fetcher.Form>
+            <TodoListForm />
         </Container>
     );
 };
-
-export default TodoLists;

@@ -7,7 +7,7 @@ import { signInAction } from "./routes/auth/signInAction";
 import { signUpAction } from "./routes/auth/signUpAction";
 import { SignUpForm } from "./routes/auth/signUpForm";
 import { SignInForm } from "./routes/auth/signInForm";
-import TodoLists from "./routes/list/todoLists";
+import { TodoLists } from "./routes/list/todoLists";
 import { todoListsLoader } from "./routes/list/todoLists.loader";
 import { createTodoListAction, deleteTodoListAction } from "./routes/list/todoLists.actions";
 import { ErrorPage } from "./components";
