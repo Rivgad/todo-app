@@ -9,7 +9,7 @@ export const todoListAction = async ({ request }: ActionFunctionArgs) => {
 
         if (name) {
             try {
-                return await todoService.addTodo(name);
+                return await todoService.addTodoList(name);
             }
             catch (ex) {
                 return {
@@ -23,7 +23,7 @@ export const todoListAction = async ({ request }: ActionFunctionArgs) => {
 
         if (id) {
             try {
-                await todoService.deleteTodo(id);
+                await todoService.deleteTodoList(id);
                 return null;
             }
             catch (ex) {

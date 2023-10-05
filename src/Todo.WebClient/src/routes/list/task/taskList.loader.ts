@@ -17,6 +17,6 @@ export const taskListLoader = async ({ params }: LoaderFunctionArgs) => {
     }
 
     return defer({
-        item: todoService.getList(id)
+        item: todoService.getTodoList(id)
     })
 };

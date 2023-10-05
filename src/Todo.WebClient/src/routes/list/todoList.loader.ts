@@ -4,6 +4,6 @@ import { todoService } from '../../services/todoService';
 
 export const todoListLoader = async () => {
     return defer({
-        items: todoService.getLists()
+        items: todoService.getTodoLists()
     })
 };
