@@ -1,54 +1,57 @@
-import { Task, Todo } from '../model';
+import { UUID } from 'crypto';
+import { TodoItem, TodoList } from '../model';
 import API from './api';
 
 
 export interface TodoService {
-    addTask(todoId: number, taskName: string): Promise<Task>;
-    getList(id: number): Promise<Todo>;
-    getLists(): Promise<Array<Todo>>;
-    addTodo(name: string): Promise<Todo>;
-    deleteTodo(id: number): Promise<void>;
+    getTodoLists(): Promise<Array<TodoList>>;
+    getTodoList(id: UUID): Promise<TodoList>;
+    addTodoList(name: string): Promise<TodoList>;
+    deleteTodoList(id: UUID): Promise<void>;
+    addTodoItem(todoListId: UUID, taskName: string): Promise<TodoItem>;
+    updateTodoItem(task: TodoItem): Promise<TodoItem>;
+    deleteTodoItem(taskId: UUID): Promise<void>;
 }
 
 class _TodoService implements TodoService {
-    async getList(id: number): Promise<Todo> {
-        const response = await API.get(`/api/list/${id}`);
+    async getTodoLists(): Promise<Array<TodoList>> {
+        const response = await API.get('/api/list');
 
-        return response.data as Todo;
+        return response.data as Array<TodoList>;
     }
 
-    async addTask(todoId: number, taskName: string): Promise<Task> {
-        const response = await API.post(`/api/list/${todoId}`, {
+    async getTodoList(id: UUID): Promise<TodoList> {
+        const response = await API.get(`/api/list/${id}`);
+
+        return response.data as TodoList;
+    }
+
+    async addTodoList(name: string): Promise<TodoList> {
+        const response = await API.post('/api/list', { name: name });
+
+        return response.data as TodoList;
+    }
+
+    async deleteTodoList(id: UUID): Promise<void> {
+        await API.delete(`/api/list/${id}`);
+    }
+
+    async addTodoItem(todoListId: UUID, taskName: string): Promise<TodoItem> {
+        const response = await API.post(`/api/list/${todoListId}`, {
             name: taskName
         })
 
-        return response.data as Task;
+        return response.data as TodoItem;
     }
 
-    async updateTask(todoId: number, task: Task): Promise<Task> {
-        const response = await API.put(`/api/list/${todoId}/${task.id}`, task);
+    async updateTodoItem(task: TodoItem): Promise<TodoItem> {
+        const response = await API.put(`/api/list/items/${task.id}`, task);
 
-        return response.data as Task;
+        return response.data as TodoItem;
     }
 
-    async deleteTask(todoId: number, taskId: number): Promise<void> {
-        await API.delete(`/api/list/${todoId}/${taskId}`)
-    }
-
-    async getLists(): Promise<Array<Todo>> {
-        const response = await API.get('/api/list');
-
-        return response.data as Array<Todo>;
-    }
-
-    async addTodo(name: string): Promise<Todo> {
-        const response = await API.post('/api/list', { name: name });
-
-        return response.data as Todo;
-    }
-
-    async deleteTodo(id: number): Promise<void> {
-        await API.delete(`/api/list/${id}`);
+    async deleteTodoItem(taskId: UUID): Promise<void> {
+        await API.delete(`/api/list/items/${taskId}`)
     }
 }
 

@@ -2,14 +2,14 @@ import React from 'react';
 import { Await, useLoaderData } from 'react-router-dom';
 
 import { ErrorComponent } from '../../../components';
-import { Todo } from '../../../model';
+import { TodoList } from '../../../model';
 import { Container } from '../styles';
 import { TaskItem } from './taskItem';
 import { TaskForm } from './taskForm';
 
 
 export const TaskList: React.FC = () => {
-    const data = useLoaderData() as { item: Todo };
+    const data = useLoaderData() as { item: TodoList };
     return (
         <Container style={{ height: "auto", padding: "0 0.7rem 2rem" }}>
             <React.Suspense fallback={<p>Загрузка...</p>}>
@@ -19,7 +19,7 @@ export const TaskList: React.FC = () => {
                         <ErrorComponent>{"Не получилось загрузить список. Попробуйте перезагрузить страницу"}</ErrorComponent>
                     }
                 >
-                    {(item: Todo) => {
+                    {(item: TodoList) => {
                         return (
                             <>
                                 <h1>{item.name}</h1>

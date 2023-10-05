@@ -1,9 +1,11 @@
 import React from 'react';
 import { Await, useFetcher, useLoaderData } from 'react-router-dom';
 import styled from 'styled-components';
-import { BaseLink, Button, ErrorComponent } from '../../components';
-import { Todo } from '../../model';
+import { BaseLink, ErrorComponent } from '../../components';
+import { TodoList } from '../../model';
 import { Container, DeleteButton, ListItem, ListContainer } from './styles';
+import { UUID } from 'crypto';
+import { TodoListForm } from './todoListForm';
 
 
 const Link = styled(BaseLink)`
@@ -12,24 +14,14 @@ const Link = styled(BaseLink)`
     padding: 1rem;
 `
 
-const TodoList: React.FC = () => {
-    const data = useLoaderData() as { items: Array<Todo> };
+export const TodoLists: React.FC = () => {
+    const data = useLoaderData() as { items: Array<TodoList> };
     const fetcher = useFetcher();
 
-    const addTodo = () => {
-        const name = prompt("Введите название:");
-        if (name) {
-            fetcher.submit({ name: name }, {
-                method: "post",
-                action: "/list"
-            })
-        }
-    };
-
-    const deleteTodo = (id: number) => {
+    const deleteTodo = (id: UUID) => {
         fetcher.submit({ id: id }, {
             method: "delete",
-            action: "/list"
+            action: "/list/delete"
         })
     };
 
@@ -43,7 +35,7 @@ const TodoList: React.FC = () => {
                             <ErrorComponent>{"Не получилось загрузить список. Попробуйте перезагрузить страницу"}</ErrorComponent>
                         }
                     >
-                        {(items: Array<Todo>) => {
+                        {(items: Array<TodoList>) => {
                             return items.length !== 0
                                 ? items.map((item) => (
                                     <ListItem key={item.id}>
@@ -64,15 +56,7 @@ const TodoList: React.FC = () => {
                 </React.Suspense>
             </ListContainer>
             <ErrorComponent>{fetcher.data?.error}</ErrorComponent>
-            <Button
-                style={{ margin: '1rem auto', width: '100%' }}
-                disabled={fetcher.state === "submitting"}
-                onClick={addTodo}
-            >
-                Создать
-            </Button>
+            <TodoListForm />
         </Container>
     );
 };
-
-export default TodoList;

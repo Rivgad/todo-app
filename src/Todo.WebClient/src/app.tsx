@@ -7,9 +7,9 @@ import { signInAction } from "./routes/auth/signInAction";
 import { signUpAction } from "./routes/auth/signUpAction";
 import { SignUpForm } from "./routes/auth/signUpForm";
 import { SignInForm } from "./routes/auth/signInForm";
-import TodoList from "./routes/list/todoList";
-import { todoListLoader } from "./routes/list/todoList.loader";
-import { todoListAction } from "./routes/list/todoList.action";
+import { TodoLists } from "./routes/list/todoLists";
+import { todoListsLoader } from "./routes/list/todoLists.loader";
+import { createTodoListAction, deleteTodoListAction } from "./routes/list/todoLists.actions";
 import { ErrorPage } from "./components";
 import { taskListLoader } from "./routes/list/task/taskList.loader";
 import { TaskList } from "./routes/list/task/taskList";
@@ -27,22 +27,26 @@ const router = createBrowserRouter([
                 children: [
                     {
                         index: true,
-                        Component: TodoList,
+                        Component: TodoLists,
                         loader: async ()=>{
                             if (!authService.isAuthenticated) {
                                 return redirect("/signin");
                             }
-                            return await todoListLoader()
+                            return await todoListsLoader()
                         }
                     },
                     {
-                        path: "/list",
-                        action: todoListAction,
+                        path: "/list/create",
+                        action: createTodoListAction,
                     },
                     {
                         path: "/list/:id",
                         loader: taskListLoader,
                         Component: TaskList,
+                    },
+                    {
+                        path: "/list/delete",
+                        action: deleteTodoListAction,
                     },
                     {
                         path: "/list/:id/create",

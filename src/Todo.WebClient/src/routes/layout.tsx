@@ -36,6 +36,7 @@ const Content = styled.div`
 const HeaderLink = styled(Link)`
     color: inherit;
     transition: color 0.3s ease;
+    display: flex;
 `
 
 const NavPanel = styled.div`

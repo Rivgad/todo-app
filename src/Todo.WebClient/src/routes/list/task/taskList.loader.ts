@@ -1,22 +1,18 @@
 import { LoaderFunctionArgs, defer, json } from 'react-router-dom';
 import { todoService } from '../../../services/todoService';
+import { UUID } from 'crypto';
 
 
 export const taskListLoader = async ({ params }: LoaderFunctionArgs) => {
-    if (!params.id) throw json(
-        { message: "ID не приведен" },
-        { status: 404 }
-    );
-
-    const id = Number(params.id)
-    if (!Number.isInteger(id)) {
+    const id = params.id as UUID | undefined
+    if (!id) {
         throw json(
-            { message: "ID не является числом" },
-            { status: 400 }
+            { message: "Не найдено" },
+            { status: 404 }
         );
     }
 
     return defer({
-        item: todoService.getList(id)
+        item: todoService.getTodoList(id)
     })
 };
