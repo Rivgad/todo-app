@@ -11,9 +11,9 @@ import { TodoLists } from "./routes/list/todoLists";
 import { todoListsLoader } from "./routes/list/todoLists.loader";
 import { createTodoListAction, deleteTodoListAction } from "./routes/list/todoLists.actions";
 import { ErrorPage } from "./components";
-import { taskListLoader } from "./routes/list/task/taskList.loader";
-import { TaskList } from "./routes/list/task/taskList";
-import { createTaskAction, deleteTaskAction, updateTaskAction } from "./routes/list/task/taskList.actions";
+import { taskListLoader } from "./routes/list/task/todoItemComponent.loader";
+import { TodoItemList } from "./routes/list/task/todoItemList";
+import { createTodoItemAction, deleteTodoItemAction, updateTodoItemAction } from "./routes/list/task/todoItemComponent.actions";
 
 
 const router = createBrowserRouter([
@@ -42,7 +42,7 @@ const router = createBrowserRouter([
                     {
                         path: "/list/:id",
                         loader: taskListLoader,
-                        Component: TaskList,
+                        Component: TodoItemList,
                     },
                     {
                         path: "/list/delete",
@@ -50,15 +50,15 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "/list/:id/create",
-                        action: createTaskAction,
+                        action: createTodoItemAction,
                     },
                     {
-                        path: "/list/:id/:taskId/update",
-                        action: updateTaskAction,
+                        path: "/list/:id/:todoItemId/update",
+                        action: updateTodoItemAction,
                     },
                     {
-                        path: "/list/:id/:taskId/delete",
-                        action: deleteTaskAction,
+                        path: "/list/:id/:todoItemId/delete",
+                        action: deleteTodoItemAction,
                     },
                 ]
             },

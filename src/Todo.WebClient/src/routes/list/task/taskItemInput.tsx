@@ -11,7 +11,7 @@ export const InputContainer = styled.div`
 `;
 
 
-export const TaskForm: React.FC = () => {
+export const TodoItemInput: React.FC = () => {
     const [text, setText] = useState('');
     const fetcher = useFetcher();
 

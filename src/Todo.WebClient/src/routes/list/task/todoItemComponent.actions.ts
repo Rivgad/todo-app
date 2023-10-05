@@ -4,7 +4,7 @@ import { TodoItemStatus } from '../../../model';
 import { UUID } from 'crypto';
 
 
-export const createTaskAction = async ({ request, params }: ActionFunctionArgs) => {
+export const createTodoItemAction = async ({ request, params }: ActionFunctionArgs) => {
     const todoId = params.id as UUID | undefined;
     if (!todoId) throw json(
         { message: "Неверный ID списка" },
@@ -26,9 +26,9 @@ export const createTaskAction = async ({ request, params }: ActionFunctionArgs) 
     return null;
 }
 
-export const updateTaskAction = async ({ request, params }: ActionFunctionArgs) => {
-    const taskId = params.taskId as UUID | null;
-    if (!taskId) throw json(
+export const updateTodoItemAction = async ({ request, params }: ActionFunctionArgs) => {
+    const todoItemId = params.todoItemId as UUID | null;
+    if (!todoItemId) throw json(
         { message: "Неверный ID задачи" },
         { status: 400 } 
     );
@@ -38,8 +38,8 @@ export const updateTaskAction = async ({ request, params }: ActionFunctionArgs) 
         const name = data.get("name") as string | null ?? "";
         const status = data.get("status") as keyof typeof TodoItemStatus | null ?? "Unfinished";
 
-        if (taskId) {
-            return await todoService.updateTodoItem(taskId, {
+        if (todoItemId) {
+            return await todoService.updateTodoItem(todoItemId, {
                 name: name,
                 status: status 
             });
@@ -54,16 +54,16 @@ export const updateTaskAction = async ({ request, params }: ActionFunctionArgs) 
     return null;
 }
 
-export const deleteTaskAction = async ({ params }: ActionFunctionArgs) => {
-    const taskId = params.taskId as UUID | null;
-    if (!taskId) throw json(
+export const deleteTodoItemAction = async ({ params }: ActionFunctionArgs) => {
+    const todoItemId = params.todoItemId as UUID | null;
+    if (!todoItemId) throw json(
         { message: "Неверный ID задачи" },
         { status: 400 } 
     );
 
     try {
-        if (taskId) {
-            await todoService.deleteTodoItem(taskId);
+        if (todoItemId) {
+            await todoService.deleteTodoItem(todoItemId);
         }
     } catch (ex) {
         return {

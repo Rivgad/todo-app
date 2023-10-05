@@ -4,11 +4,11 @@ import { Await, useLoaderData } from 'react-router-dom';
 import { ErrorComponent } from '../../../components';
 import { TodoList } from '../../../model';
 import { Container } from '../styles';
-import { TaskItem } from './taskItem';
-import { TaskForm } from './taskForm';
+import { TodoItemComponent } from './todoItemComponent';
+import { TodoItemInput } from './taskItemInput';
 
 
-export const TaskList: React.FC = () => {
+export const TodoItemList: React.FC = () => {
     const data = useLoaderData() as { item: TodoList };
     return (
         <Container style={{ height: "auto", padding: "0 0.7rem 2rem" }}>
@@ -23,10 +23,10 @@ export const TaskList: React.FC = () => {
                         return (
                             <>
                                 <h1>{item.name}</h1>
-                                <TaskForm />
+                                <TodoItemInput />
                                 {
                                     item.tasks?.map(task => {
-                                        return <TaskItem key={task.id} task={task}></TaskItem>
+                                        return <TodoItemComponent key={task.id} item={task}></TodoItemComponent>
                                     })
                                 }
                             </>

@@ -20,22 +20,22 @@ const ActionButton = styled.button`
     }
 `;
 
-export const TaskItem: React.FC<{ task: TodoItem; }> = ({ task }) => {
+export const TodoItemComponent: React.FC<{ item: TodoItem; }> = ({ item }) => {
     const fetcher = useFetcher();
-    const [name, setName] = useState(task.name);
-    const [status, setStatus] = useState(task.status);
+    const [name, setName] = useState(item.name);
+    const [status, setStatus] = useState(item.status);
 
     return (
         <ListItem style={{ backgroundColor: status == "Finished" ? "#9cda9e" : "#ffd993" }}>
             <fetcher.Form
-                action={`${task.id}/update`}
+                action={`${item.id}/update`}
                 method="put"
                 style={{ display: "inherit", flex: 1 }}
                 onSubmit={(e) => {
                     e.preventDefault();
                     fetcher.submit(
-                        { id: task.id, name: name, status: status },
-                        { action: `${task.id}/update`, method: "put" }
+                        { id: item.id, name: name, status: status },
+                        { action: `${item.id}/update`, method: "put" }
                     )
                 }}
             >
@@ -64,7 +64,7 @@ export const TaskItem: React.FC<{ task: TodoItem; }> = ({ task }) => {
                 </ActionButton>
             </fetcher.Form>
 
-            <fetcher.Form action={`${task.id}/delete`} method="delete">
+            <fetcher.Form action={`${item.id}/delete`} method="delete">
                 <ActionButton type='submit'>
                     <Trash size={30} />
                 </ActionButton>

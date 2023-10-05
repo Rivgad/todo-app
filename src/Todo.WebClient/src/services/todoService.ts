@@ -9,8 +9,8 @@ export interface TodoService {
     addTodoList(name: string): Promise<TodoList>;
     deleteTodoList(id: UUID): Promise<void>;
     addTodoItem(todoListId: UUID, taskName: string): Promise<TodoItem>;
-    updateTodoItem(taskId: UUID, request: UpdateTodoItemRequest): Promise<TodoItem>;
-    deleteTodoItem(taskId: UUID): Promise<void>;
+    updateTodoItem(todoItemId: UUID, request: UpdateTodoItemRequest): Promise<TodoItem>;
+    deleteTodoItem(todoItemId: UUID): Promise<void>;
 }
 
 export interface UpdateTodoItemRequest {
@@ -55,14 +55,14 @@ class _TodoService implements TodoService {
         return response.data as TodoItem;
     }
 
-    async updateTodoItem(taskId: UUID, request: UpdateTodoItemRequest): Promise<TodoItem> {
-        const response = await API.put(`/api/list/items/${taskId}`, request);
+    async updateTodoItem(todoItemId: UUID, request: UpdateTodoItemRequest): Promise<TodoItem> {
+        const response = await API.put(`/api/list/items/${todoItemId}`, request);
 
         return response.data as TodoItem;
     }
 
-    async deleteTodoItem(taskId: UUID): Promise<void> {
-        await API.delete(`/api/list/items/${taskId}`)
+    async deleteTodoItem(todoItemId: UUID): Promise<void> {
+        await API.delete(`/api/list/items/${todoItemId}`)
     }
 }
 
