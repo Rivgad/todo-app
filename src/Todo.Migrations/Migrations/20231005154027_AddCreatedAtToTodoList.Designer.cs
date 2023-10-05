@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Todo.Core.Context;
@@ -11,9 +12,11 @@ using Todo.Core.Context;
 namespace Todo.Migrations.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231005154027_AddCreatedAtToTodoList")]
+    partial class AddCreatedAtToTodoList
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -222,14 +225,14 @@ namespace Todo.Migrations.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f8cc2629-978d-4e54-a09a-454b2f6766a8",
+                            ConcurrencyStamp = "e172db85-321b-4547-b1b2-db47a1ca031f",
                             Email = "test_user@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "test_user",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIbw7ak6t8SZiG6Ba4iEav2UfYzX65XxK2HH9M1PjP5UGUMtgSopm1p9MuhMsJ75jA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKX2neNKrJPnA8QLO/lqHklKPLSA4YDJ1eZPN7TAyfkZE9K7UTdFkchPi3wrr55mvQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "de3ad936-b509-4a46-ad43-4786534e0167",
+                            SecurityStamp = "0e5b8bdf-bd42-4822-aa64-99eb16de5f01",
                             TwoFactorEnabled = false,
                             UserName = "test_user"
                         });
@@ -240,9 +243,6 @@ namespace Todo.Migrations.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .IsRequired()

@@ -5,11 +5,12 @@ namespace Todo.WebApi.Models.Dto;
 
 public record TodoItemDto
 {
-	public TodoItemDto(Guid id, string name, TodoItemStatus status)
+	public TodoItemDto(Guid id, string name, TodoItemStatus status, DateTime createdAt)
 	{
 		Id = id;
 		Name = name;
 		Status = status;
+		CreatedAt = createdAt;
 	}
 
 	[JsonPropertyName("id")]
@@ -22,4 +23,7 @@ public record TodoItemDto
 	[JsonRequired]
 	[JsonConverter(typeof(JsonStringEnumConverter))]
 	public TodoItemStatus Status { get; init; }
+
+	[JsonPropertyName("createdAt")]
+	public DateTime CreatedAt { get; init; }
 }

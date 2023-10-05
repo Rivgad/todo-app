@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Internal;
 using Todo.Core.Context;
 using Todo.Core.Models;
 
@@ -7,10 +8,14 @@ namespace Todo.Core.Services;
 public class TodoListRepository : ITodoListRepository
 {
 	private readonly ApplicationDbContext _context;
+	private readonly ISystemClock _systemClock;
 
-	public TodoListRepository(ApplicationDbContext context)
+	public TodoListRepository(
+		ApplicationDbContext context,
+		ISystemClock systemClock)
 	{
 		_context = context;
+		_systemClock = systemClock;
 	}
 
 	public async Task<List<TodoList>> GetTodoListsAsync(string userId)
@@ -18,6 +23,7 @@ public class TodoListRepository : ITodoListRepository
 		return await _context.TodoLists
 			.AsNoTracking()
 			.Where(item => item.UserId == userId)
+			.OrderBy(item => item.CreatedAt)
 			.ToListAsync();
 	}
 
@@ -36,7 +42,10 @@ public class TodoListRepository : ITodoListRepository
 		if (user == null)
 			return null;
 
-		var item = new TodoList(name);
+		var item = new TodoList(name)
+		{
+			CreatedAt = _systemClock.UtcNow.DateTime.ToUniversalTime(),
+		};
 		user.TodoLists.Add(item);
 
 		await _context.TodoLists.AddAsync(item);

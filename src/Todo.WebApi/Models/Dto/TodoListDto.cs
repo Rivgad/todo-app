@@ -4,11 +4,12 @@ namespace Todo.WebApi.Models.Dto;
 
 public record TodoListDto
 {
-	public TodoListDto(Guid id, string name, List<TodoItemDto>? items = null)
+	public TodoListDto(Guid id, string name, DateTime createdAt, List<TodoItemDto>? items = null)
 	{
 		Id = id;
 		Name = name;
 		Tasks = items;
+		CreatedAt = createdAt;
 	}
 
 	[JsonPropertyName("id")]
@@ -16,6 +17,9 @@ public record TodoListDto
 
 	[JsonPropertyName("name")]
 	public string Name { get; init; }
+
+	[JsonPropertyName("createdAt")]
+	public DateTime CreatedAt { get; init; }
 
 	[JsonPropertyName("tasks")]
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]

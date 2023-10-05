@@ -21,6 +21,9 @@ public class TodoItem
 	public TodoItemStatus Status { get; set; } = TodoItemStatus.Unfinished;
 
 	[Required]
+	public DateTime CreatedAt { get; set; }
+
+	[Required]
 	[ForeignKey(nameof(TodoList))]
 	public Guid TodoId { get; private set; }
 
