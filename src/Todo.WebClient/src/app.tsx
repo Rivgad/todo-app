@@ -9,7 +9,7 @@ import { SignUpForm } from "./routes/auth/signUpForm";
 import { SignInForm } from "./routes/auth/signInForm";
 import TodoLists from "./routes/list/todoLists";
 import { todoListsLoader } from "./routes/list/todoLists.loader";
-import { todoListsAction } from "./routes/list/todoLists.action";
+import { createTodoListAction, deleteTodoListAction } from "./routes/list/todoLists.actions";
 import { ErrorPage } from "./components";
 import { taskListLoader } from "./routes/list/task/taskList.loader";
 import { TaskList } from "./routes/list/task/taskList";
@@ -36,13 +36,17 @@ const router = createBrowserRouter([
                         }
                     },
                     {
-                        path: "/list",
-                        action: todoListsAction,
+                        path: "/list/create",
+                        action: createTodoListAction,
                     },
                     {
                         path: "/list/:id",
                         loader: taskListLoader,
                         Component: TaskList,
+                    },
+                    {
+                        path: "/list/delete",
+                        action: deleteTodoListAction,
                     },
                     {
                         path: "/list/:id/create",

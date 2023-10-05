@@ -20,7 +20,7 @@ const TodoLists: React.FC = () => {
     const deleteTodo = (id: UUID) => {
         fetcher.submit({ id: id }, {
             method: "delete",
-            action: "/list"
+            action: "/list/delete"
         })
     };
 
@@ -55,7 +55,7 @@ const TodoLists: React.FC = () => {
                 </React.Suspense>
             </ListContainer>
             <ErrorComponent>{fetcher.data?.error}</ErrorComponent>
-            <fetcher.Form action="list" method="post">
+            <fetcher.Form action="/list/create" method="post">
                 <InputGroup>
                     <Input type="text" placeholder="Название" maxLength={300} id="input-name" name="name" required />
                     <Button
