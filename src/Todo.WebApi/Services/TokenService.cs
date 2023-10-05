@@ -35,7 +35,7 @@ public class TokenService : ITokenService
 			issuer: _options.Issuer,
 			audience: _options.Audience,
 			claims: claims,
-			expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(10)),
+			expires: DateTime.UtcNow.Add(TimeSpan.FromDays(30)),
 			signingCredentials: new SigningCredentials(
 				_options.GetSymmetricSecurityKey(),
 				SecurityAlgorithms.HmacSha256));
